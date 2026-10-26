@@ -1,0 +1,6 @@
+{
+  "name": "VaultIQ - AICTE FDR & Security Deposit Portal",
+  "description": "Enterprise AICTE Security Deposit & FDR Management Portal featuring AI OCR, Split Verification, Discrepancy Highlighting, and Cryptographic Audit Trails.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

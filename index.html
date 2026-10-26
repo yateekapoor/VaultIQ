@@ -1,0 +1,3850 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VaultIQ — AICTE Security Deposit &amp; FDR Management Portal</title>
+    <meta name="description" content="AICTE Security Deposit and Fixed Deposit Receipt regulatory portal with Core Banking SFMS verification, AI OCR ingestion, discrepancy highlights, and cryptographic audit trails." />
+    <meta property="og:title" content="VaultIQ — AICTE Regulation Bureau" />
+    <meta property="og:description" content="AICTE Security Deposit &amp; FDR Regulatory Command Center." />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts: Inter, JetBrains Mono & Noto Sans Devanagari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              bgDark: '#0b0f0e',
+              cardDark: '#121816',
+              borderDark: '#1e2923',
+              cardDarkHover: '#17221e',
+              tealAccent: '#14b8a6',
+              tealLight: '#2dd4bf',
+              tealDark: '#0f766e',
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      /* Enterprise Command Center Scrollbars */
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e2923;
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2d3d34;
+      }
+
+      /* OCR Laser Scan Line Animation */
+      @keyframes laserScan {
+        0% { top: 0%; opacity: 0.9; }
+        50% { top: 96%; opacity: 1; }
+        100% { top: 0%; opacity: 0.9; }
+      }
+      .laser-scan-bar {
+        animation: laserScan 1.8s ease-in-out infinite;
+      }
+
+      /* Credential verification pulse glow */
+      @keyframes tealBarGlow {
+        0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 4px #14b8a6); }
+        50% { opacity: 1; filter: drop-shadow(0 0 10px #2dd4bf); }
+      }
+      .glow-pulse-bar {
+        animation: tealBarGlow 2.4s ease-in-out infinite;
+      }
+
+      /* Complete Working Light Theme Overrides */
+      html:not(.dark) {
+        color-scheme: light;
+      }
+      html:not(.dark) body {
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
+      }
+      html:not(.dark) header {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) footer {
+        border-color: #e2e8f0 !important;
+        background-color: #f8fafc !important;
+        color: #64748b !important;
+      }
+      html:not(.dark) .bg-\[\#0b0f0e\] {
+        background-color: #f1f5f9 !important;
+      }
+      html:not(.dark) .bg-\[\#121816\] {
+        background-color: #ffffff !important;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+      }
+      html:not(.dark) .bg-\[\#18211e\] {
+        background-color: #f0fdf4 !important;
+      }
+      html:not(.dark) .border-\[\#1e2923\] {
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) .text-\[\#f8fafc\] {
+        color: #0f172a !important;
+      }
+      html:not(.dark) .text-\[\#94a3b8\] {
+        color: #64748b !important;
+      }
+      html:not(.dark) input,
+      html:not(.dark) select,
+      html:not(.dark) textarea {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #cbd5e1 !important;
+      }
+      html:not(.dark) input:focus,
+      html:not(.dark) select:focus,
+      html:not(.dark) textarea:focus {
+        border-color: #0d9488 !important;
+      }
+      html:not(.dark) table thead tr {
+        background-color: #f8fafc !important;
+        color: #475569 !important;
+      }
+      html:not(.dark) table tbody tr:hover {
+        background-color: #f8fafc !important;
+      }
+      html:not(.dark) .divide-\[\#1e2923\] > * + * {
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) #notifPanel {
+        background-color: #ffffff !important;
+        border-color: #cbd5e1 !important;
+      }
+      html:not(.dark) #saathiDrawer {
+        background-color: #ffffff !important;
+        border-color: #cbd5e1 !important;
+      }
+      html:not(.dark) #saathiMessages .bg-\[\#0b0f0e\] {
+        background-color: #f1f5f9 !important;
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) #auditTrailDrawer .bg-\[\#121816\] {
+        background-color: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-[#0b0f0e] text-[#f8fafc] min-h-screen font-sans antialiased selection:bg-[#14b8a6] selection:text-[#0b0f0e] transition-colors duration-200">
+
+    <!-- Global Root Container -->
+    <div id="app" class="min-h-screen flex flex-col justify-between">
+
+      <!-- ==================================================== -->
+      <!-- GLOBAL TOP NAVIGATION BAR                            -->
+      <!-- ==================================================== -->
+      <header class="sticky top-0 z-40 bg-[#0b0f0e]/95 backdrop-blur border-b border-[#1e2923] transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+          
+          <!-- Left: Brand Logo & Subtitle -->
+          <div class="flex items-center gap-3">
+            <button onclick="handleLogoClick()" class="flex items-center gap-2.5 text-left group focus:outline-none" aria-label="VaultIQ Home">
+              <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-[#14b8a6] to-[#0f766e] flex items-center justify-center text-[#0b0f0e] font-black shadow-sm group-hover:opacity-90 transition">
+                <i data-lucide="shield-check" class="w-5 h-5 text-[#0b0f0e] stroke-[2.5]"></i>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-base tracking-tight text-[#f8fafc]">Vault<span class="text-[#2dd4bf]">IQ</span></span>
+                  <span class="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#121816] text-[#2dd4bf] border border-[#1e2923]">AICTE</span>
+                </div>
+                <span class="text-[10px] text-[#94a3b8] font-medium uppercase tracking-wider" data-i18n="portalSubtitle">AICTE Regulation Bureau</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Center: Role-Specific Segmented Navigation (Strictly Hidden on Login Screen) -->
+          <nav id="topCenterNav" class="hidden items-center bg-[#121816] border border-[#1e2923] p-1 rounded-xl text-xs font-medium">
+            <!-- Dynamically populated per active role -->
+          </nav>
+
+          <!-- Right Controls: Status, Theme, Language, Notifications, User Badge -->
+          <div class="flex items-center gap-2.5">
+            
+            <!-- System Status (Hidden on Login) -->
+            <div id="headerStatusBadge" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#121816] border border-[#1e2923] text-[#2dd4bf]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf] animate-pulse"></span>
+              <span data-i18n="systemOnline">System Online</span>
+            </div>
+
+            <!-- Light / Dark Mode Toggle (Always available) -->
+            <button 
+              id="themeToggleBtn" 
+              onclick="toggleTheme()" 
+              class="p-2 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] hover:bg-[#121816] border border-[#1e2923] transition focus:outline-none"
+              aria-label="Toggle Light and Dark Mode"
+              title="Toggle Theme"
+            >
+              <i id="themeIcon" data-lucide="sun" class="w-4 h-4"></i>
+            </button>
+
+            <!-- Language Switcher (EN / HI) (Always available) -->
+            <div class="relative">
+              <select 
+                id="langSelector" 
+                onchange="setLanguage(this.value)" 
+                class="text-xs font-medium py-1.5 pl-2 pr-6 rounded-lg bg-[#121816] border border-[#1e2923] text-[#f8fafc] focus:outline-none cursor-pointer"
+                aria-label="Language selector"
+              >
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+              </select>
+            </div>
+
+            <!-- Role-Specific Notifications Bell (Strictly Hidden on Login Screen) -->
+            <div id="headerNotifContainer" class="hidden relative">
+              <button 
+                id="notifBellBtn" 
+                onclick="toggleNotifications()" 
+                class="relative p-2 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] hover:bg-[#121816] border border-[#1e2923] transition focus:outline-none"
+                aria-label="Notifications"
+                title="Regulatory Alerts"
+              >
+                <i data-lucide="bell" class="w-4 h-4"></i>
+                <span id="notifBadge" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-[#0b0f0e]"></span>
+              </button>
+
+              <!-- Notification Center Dropdown -->
+              <div 
+                id="notifPanel" 
+                class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-[#121816] rounded-xl shadow-2xl border border-[#1e2923] py-3 z-50 transition"
+              >
+                <div class="flex items-center justify-between px-4 pb-2.5 border-b border-[#1e2923]">
+                  <div class="flex items-center gap-2">
+                    <span class="font-semibold text-xs tracking-wider uppercase text-[#f8fafc]" id="alertsRoleHeader">Compliance Alerts</span>
+                    <span id="unreadCountBadge" class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-rose-950 text-rose-400 border border-rose-900">3 new</span>
+                  </div>
+                  <button 
+                    onclick="markAllNotificationsRead()" 
+                    class="text-[11px] font-medium text-[#2dd4bf] hover:underline"
+                    data-i18n="markAllRead"
+                  >
+                    Mark all read
+                  </button>
+                </div>
+                <div id="notifList" class="max-h-72 overflow-y-auto divide-y divide-[#1e2923] text-xs">
+                  <!-- Populated dynamically per active role -->
+                </div>
+                <div class="pt-2 px-4 border-t border-[#1e2923] text-center">
+                  <span class="text-[10px] text-[#94a3b8]" data-i18n="notifFooter">AICTE SFMS Watchdog Service Active</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Logged-In User Badge (Strictly Hidden on Login Screen) -->
+            <div id="headerUserBadge" class="hidden items-center gap-2 pl-2 border-l border-[#1e2923]">
+              <div class="w-7 h-7 rounded-full bg-[#18211e] border border-[#1e2923] flex items-center justify-center text-xs font-bold text-[#2dd4bf]" id="headerAvatar">
+                CR
+              </div>
+              <div class="flex flex-col text-left hidden sm:flex">
+                <span id="headerUserName" class="text-xs font-semibold text-[#f8fafc] leading-tight">Prof. Rajesh Kumar</span>
+                <span id="headerUserRoleTitle" class="text-[10px] text-[#94a3b8] leading-tight">Institution Coordinator</span>
+              </div>
+              <button onclick="logout()" class="p-1.5 rounded text-[#94a3b8] hover:text-rose-400 transition" title="Logout">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <!-- ==================================================== -->
+      <!-- MAIN BODY CONTAINER                                  -->
+      <!-- ==================================================== -->
+      <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- -------------------------------------------------- -->
+        <!-- VIEW 0: CLEAN LOGIN PAGE (Strict Enterprise Cards) -->
+        <!-- -------------------------------------------------- -->
+        <section id="viewLogin" class="py-8 flex items-center justify-center">
+          <div class="w-full max-w-xl bg-[#121816] rounded-2xl border border-[#1e2923] p-8 shadow-2xl space-y-6">
+            
+            <!-- Header Kicker & Title -->
+            <div class="text-center space-y-1.5">
+              <span class="text-[11px] font-bold uppercase tracking-widest text-[#2dd4bf] block" data-i18n="loginKicker">AICTE Security Deposit &amp; FDR Portal</span>
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-[#f8fafc] tracking-tight" data-i18n="loginTitle">Secure regulatory access</h1>
+              <p class="text-xs text-[#94a3b8]" data-i18n="loginSubtitle">Sign in with a prepared demo account.</p>
+            </div>
+
+            <!-- Credentials Box -->
+            <div class="space-y-4 text-xs">
+              <div>
+                <label class="block font-medium text-[#94a3b8] mb-1.5" data-i18n="labelUsername">Username</label>
+                <input 
+                  type="text" 
+                  id="loginUsername" 
+                  value="institution.demo" 
+                  readonly 
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label class="block font-medium text-[#94a3b8] mb-1.5" data-i18n="labelPassword">Password</label>
+                <input 
+                  type="password" 
+                  value="••••••••••••" 
+                  readonly 
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono focus:outline-none"
+                />
+              </div>
+
+              <!-- Verification Graphic Indicator -->
+              <div class="p-6 rounded-xl bg-[#0b0f0e] border border-[#1e2923] flex flex-col items-center justify-center space-y-3 relative overflow-hidden">
+                <div class="w-16 h-16 rounded-full border-2 border-[#14b8a6]/70 bg-[#121816] flex items-center justify-center text-[#2dd4bf] font-black text-lg shadow-[0_0_20px_rgba(20,184,166,0.25)]" id="loginAvatarCircle">
+                  CR
+                </div>
+                
+                <div class="w-48 h-0.5 bg-[#1e2923] relative overflow-hidden rounded-full">
+                  <div class="absolute inset-0 bg-gradient-to-r from-[#14b8a6] to-[#2dd4bf] glow-pulse-bar"></div>
+                </div>
+
+                <span class="text-[11px] text-[#94a3b8] font-medium" id="loginVerificationStatus">Regulatory credential selected · ready to verify</span>
+              </div>
+
+              <!-- 3 Distinct Role Cards (Completely Decoupled) -->
+              <div class="space-y-2 pt-1">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-[#94a3b8] block" data-i18n="demoAccountsLabel">Select Prepared Account (Strict RBAC):</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  
+                  <!-- Role 1: Institution Coordinator -->
+                  <div 
+                    id="cardRoleCoord" 
+                    onclick="selectLoginRole('coordinator')" 
+                    class="p-3 rounded-xl border border-[#14b8a6] bg-[#18211e] text-left cursor-pointer transition"
+                  >
+                    <div class="font-bold text-xs text-[#f8fafc]">Rajesh Kumar</div>
+                    <div class="text-[10px] text-[#2dd4bf] mt-0.5 font-medium">Institution Coordinator</div>
+                    <div class="text-[9px] text-[#94a3b8] mt-1 font-mono">institution.demo</div>
+                  </div>
+
+                  <!-- Role 2: Regulation Officer -->
+                  <div 
+                    id="cardRoleOfficer" 
+                    onclick="selectLoginRole('officer')" 
+                    class="p-3 rounded-xl border border-[#1e2923] bg-[#0b0f0e] hover:border-[#2d3d34] text-left cursor-pointer transition"
+                  >
+                    <div class="font-bold text-xs text-[#f8fafc]">Dr. Sunita Sharma</div>
+                    <div class="text-[10px] text-[#94a3b8] mt-0.5 font-medium">Regulation Officer</div>
+                    <div class="text-[9px] text-[#94a3b8] mt-1 font-mono">officer.demo</div>
+                  </div>
+
+                  <!-- Role 3: Auditor -->
+                  <div 
+                    id="cardRoleAuditor" 
+                    onclick="selectLoginRole('auditor')" 
+                    class="p-3 rounded-xl border border-[#1e2923] bg-[#0b0f0e] hover:border-[#2d3d34] text-left cursor-pointer transition"
+                  >
+                    <div class="font-bold text-xs text-[#f8fafc]">Arun Mehta</div>
+                    <div class="text-[10px] text-[#94a3b8] mt-0.5 font-medium">Auditor</div>
+                    <div class="text-[9px] text-[#94a3b8] mt-1 font-mono">auditor.demo</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sign In Button -->
+              <button 
+                type="button" 
+                onclick="submitLogin()" 
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-[#14b8a6] to-[#2dd4bf] text-[#0b0f0e] font-extrabold text-sm tracking-wide shadow-lg shadow-[#14b8a6]/20 hover:opacity-95 transition flex items-center justify-center gap-2"
+                data-i18n="verifySignIn"
+              >
+                <i data-lucide="shield-check" class="w-4 h-4 stroke-[2.5]"></i>
+                <span>Verify &amp; sign in</span>
+              </button>
+
+              <div class="pt-2 text-center text-[11px] text-[#94a3b8]">
+                Protected under AICTE Statutory Regulations &amp; National IT Act.
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------- -->
+        <!-- VIEW 1: INSTITUTION COORDINATOR DEDICATED PAGE     -->
+        <!-- -------------------------------------------------- -->
+        <section id="pageCoordinator" class="hidden space-y-6">
+          
+          <!-- Banner -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1e2923] pb-4">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#2dd4bf]">INSTITUTION CONSOLE · DELHI TECHNICAL CAMPUS (AICTE PERMANENT ID: 1-932145)</span>
+              <h1 class="text-2xl font-extrabold text-[#f8fafc] tracking-tight mt-0.5">Security Deposit Operations</h1>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="switchCoordView('upload')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-[#14b8a6] text-[#0b0f0e] hover:bg-[#2dd4bf] transition flex items-center gap-1.5">
+                <i data-lucide="upload-cloud" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                <span>Submit New FDR (AI OCR)</span>
+              </button>
+              <button onclick="exportRegistryCSV()" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#f8fafc] hover:bg-[#18211e] border border-[#1e2923] transition flex items-center gap-1.5">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Coordinator 4-Metric Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">TOTAL VALUE LOCKED</div>
+              <div class="text-2xl font-black text-[#f8fafc] tracking-tight" id="coordMetricTotalVal">₹ 2.45 Cr</div>
+              <div class="text-[11px] text-[#94a3b8]" id="coordMetricActiveCount">6 College Instruments</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">EXPIRING SOON (&lt; 30 DAYS)</div>
+              <div class="text-2xl font-black text-amber-400 tracking-tight" id="coordMetricExpiring">01</div>
+              <div class="text-[11px] text-amber-400">Renewal Due: Nov 10</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">OVERDUE MATURED</div>
+              <div class="text-2xl font-black text-rose-400 tracking-tight" id="coordMetricMatured">01</div>
+              <div class="text-[11px] text-rose-400" id="coordMetricMaturedSub">BOB-FDR-2021-90342</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">PENDING VERIFICATION</div>
+              <div class="text-2xl font-black text-[#2dd4bf] tracking-tight" id="coordMetricPending">01</div>
+              <div class="text-[11px] text-[#2dd4bf]">Awaiting Officer Signoff</div>
+            </div>
+          </div>
+
+          <!-- Coordinator Sub-Views: Upload vs Registry vs Renewals & Releases -->
+          
+          <!-- SUB-VIEW 1: SUBMIT NEW FDR (AI OCR) -->
+          <div id="coordViewUpload" class="space-y-6">
+            
+            <!-- Guardrail / Error Alert Banner (Strictly hidden on valid / successful OCR) -->
+            <div id="ocrErrorBanner" class="hidden p-4 rounded-xl border transition-all">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <i id="ocrErrorIcon" data-lucide="alert-octagon" class="w-5 h-5 shrink-0 mt-0.5"></i>
+                  <div class="space-y-1">
+                    <h4 id="ocrErrorTitle" class="text-xs font-bold">Error</h4>
+                    <p id="ocrErrorMessage" class="text-xs leading-relaxed"></p>
+                  </div>
+                </div>
+                <button type="button" onclick="clearOcrErrors()" class="text-[#94a3b8] hover:text-[#f8fafc] p-1 rounded-lg hover:bg-white/10 transition shrink-0" title="Dismiss error banner">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- OCR Workspace -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+              <!-- Left: File Ingestion Zone (5 cols) -->
+              <div class="lg:col-span-5 space-y-4">
+                <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h3 class="text-sm font-bold text-[#f8fafc]">AI OCR Document Ingestion</h3>
+                      <p class="text-xs text-[#94a3b8] mt-0.5">Upload a scanned FDR from your computer or load the default specimen receipt.</p>
+                    </div>
+                  </div>
+
+                  <!-- Prominent Default Demo Button -->
+                  <button 
+                    type="button" 
+                    onclick="loadDefaultDemoReceipt()" 
+                    class="w-full py-3 px-4 rounded-xl text-xs font-bold text-[#0b0f0e] bg-gradient-to-r from-[#14b8a6] to-[#2dd4bf] hover:opacity-95 shadow-lg shadow-[#14b8a6]/20 transition flex items-center justify-center gap-2"
+                  >
+                    <i data-lucide="sparkles" class="w-4 h-4 stroke-[2.5]"></i>
+                    <span>Try Default Demo FDR (Specimen Load)</span>
+                  </button>
+
+                  <!-- Local File Drag and Drop Zone -->
+                  <div 
+                    id="fdrDropZone" 
+                    ondragover="handleDragOver(event)" 
+                    ondragleave="handleDragLeave(event)" 
+                    ondrop="handleFileDrop(event)"
+                    class="relative border-2 border-dashed border-[#1e2923] hover:border-[#14b8a6] rounded-xl p-6 text-center cursor-pointer transition bg-[#0b0f0e]"
+                  >
+                    <input type="file" id="localFileInput" onchange="handleLocalFileChange(event)" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.png,.jpg,.jpeg,.svg" />
+                    <div class="flex flex-col items-center justify-center space-y-2 pointer-events-none">
+                      <div class="w-10 h-10 rounded-lg bg-[#18211e] text-[#2dd4bf] flex items-center justify-center">
+                        <i data-lucide="file-up" class="w-5 h-5"></i>
+                      </div>
+                      <div class="text-xs font-semibold text-[#f8fafc]">
+                        <span class="text-[#2dd4bf]">Upload from local computer</span> or drag &amp; drop
+                      </div>
+                      <p class="text-[11px] text-[#94a3b8]">PDF, PNG, JPG, or SVG up to 10MB</p>
+                    </div>
+                  </div>
+
+                  <!-- Simulated Edge Cases & Tests -->
+                  <div class="space-y-2 pt-2 border-t border-[#1e2923]">
+                    <span class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider block">Simulator &amp; Guardrail Tests:</span>
+                    <div class="grid grid-cols-2 gap-2">
+                      <button 
+                        type="button" 
+                        onclick="triggerUnrelatedDocError()" 
+                        class="p-2.5 rounded-lg border border-[#1e2923] hover:border-rose-500 bg-[#0b0f0e] text-left transition"
+                      >
+                        <div class="text-xs font-bold text-[#f8fafc] flex items-center gap-1">
+                          <i data-lucide="file-x" class="w-3.5 h-3.5 text-rose-400"></i>
+                          <span>Invalid Document</span>
+                        </div>
+                        <div class="text-[10px] text-[#94a3b8] mt-0.5">Test invoice / random file</div>
+                      </button>
+
+                      <button 
+                        type="button" 
+                        onclick="triggerMissingFieldsError()" 
+                        class="p-2.5 rounded-lg border border-[#1e2923] hover:border-amber-500 bg-[#0b0f0e] text-left transition"
+                      >
+                        <div class="text-xs font-bold text-[#f8fafc] flex items-center gap-1">
+                          <i data-lucide="scan" class="w-3.5 h-3.5 text-amber-400"></i>
+                          <span>Corrupted Scan</span>
+                        </div>
+                        <div class="text-[10px] text-[#94a3b8] mt-0.5">Test missing critical fields</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Preview Thumbnail & Dedicated "Run OCR" Action -->
+                <div class="p-4 rounded-xl bg-[#121816] border border-[#1e2923] space-y-3">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-[#f8fafc] truncate max-w-[200px]" id="previewDocName">sample-fdr-sbi.svg</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]" id="previewDocTag">Ready for OCR</span>
+                  </div>
+
+                  <!-- Scanned Instrument Viewport -->
+                  <div class="relative w-full h-56 bg-[#0b0f0e] rounded-lg overflow-hidden border border-[#1e2923] flex items-center justify-center p-2">
+                    <div id="ocrLaserBar" class="hidden absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#2dd4bf] to-transparent laser-scan-bar z-20"></div>
+                    <img id="ocrPreviewImage" src="assets/sample-fdr-sbi.svg" alt="Document Preview" class="max-h-full max-w-full object-contain" />
+                    <!-- Document / PDF File Card Preview -->
+                    <div id="ocrDocFileCard" class="hidden flex-col items-center justify-center p-4 text-center space-y-2">
+                      <div class="w-12 h-12 rounded-xl bg-[#18211e] border border-[#14b8a6] text-[#2dd4bf] flex items-center justify-center shadow-lg">
+                        <i data-lucide="file-text" class="w-6 h-6 stroke-[2]"></i>
+                      </div>
+                      <div class="text-xs font-bold text-[#f8fafc] truncate max-w-[220px]" id="ocrDocFileCardName">document.pdf</div>
+                      <div class="text-[10px] text-[#2dd4bf] font-mono px-2 py-0.5 rounded bg-[#18211e] border border-[#1e2923]" id="ocrDocFileCardMeta">PDF Term Deposit Receipt</div>
+                      <div class="text-[10px] text-[#94a3b8]">AICTE Security Deposit Format Verified</div>
+                    </div>
+                  </div>
+
+                  <!-- OCR Live Status Bar -->
+                  <div id="ocrLiveStatus" class="hidden p-2 rounded bg-[#0b0f0e] border border-[#1e2923] text-xs text-[#2dd4bf] flex items-center justify-between">
+                    <span id="ocrStatusMsg">Extracting security watermark and text...</span>
+                    <span id="ocrPercentNum" class="font-mono font-bold">45%</span>
+                  </div>
+
+                  <!-- Dedicated RUN OCR Button -->
+                  <button 
+                    type="button" 
+                    id="btnRunOcr" 
+                    onclick="executeRunOcr()" 
+                    class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#0b0f0e] bg-[#2dd4bf] hover:bg-[#14b8a6] transition flex items-center justify-center gap-2 shadow-sm"
+                  >
+                    <i data-lucide="cpu" class="w-4 h-4 stroke-[2.5]"></i>
+                    <span id="btnRunOcrText">Run OCR (Extract &amp; Populate Form)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right: Pre-filled Form Fields for Review (7 cols) -->
+              <div class="lg:col-span-7">
+                <form id="coordFdrForm" onsubmit="handleCoordinatorFormSubmit(event)" class="p-6 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+                  <div class="flex items-center justify-between border-b border-[#1e2923] pb-3">
+                    <div>
+                      <h3 class="text-sm font-bold text-[#f8fafc]">Extracted Instrument Review</h3>
+                      <p class="text-xs text-[#94a3b8]">Review auto-populated fields before submitting to Regulation Bureau.</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#2dd4bf] px-2 py-0.5 rounded bg-[#18211e] border border-[#1e2923]">SFMS SYNC READY</span>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">FDR Reference Number *</label>
+                      <input type="text" id="fdrRefNumber" required placeholder="e.g. SBI-FDR-2024-88910" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Issuing Bank Name *</label>
+                      <input type="text" id="fdrBankName" required placeholder="e.g. State Bank of India" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Bank Branch &amp; IFSC *</label>
+                      <input type="text" id="fdrBranch" required placeholder="e.g. Connaught Place (SBIN0000691)" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Principal Amount (INR) *</label>
+                      <input type="number" id="fdrAmount" required placeholder="5000000" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono font-bold" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Interest Rate (% p.a.) *</label>
+                      <input type="number" step="0.01" id="fdrInterestRate" required placeholder="7.25" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Date of Issue *</label>
+                      <input type="date" id="fdrIssueDate" required class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">Date of Maturity *</label>
+                      <input type="date" id="fdrMaturityDate" required class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" />
+                    </div>
+
+                    <div>
+                      <label class="block font-medium text-[#94a3b8] mb-1">SFMS UTR / CBS Reference</label>
+                      <input type="text" id="fdrSfmsTxn" placeholder="SFMS241029881920-IND" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] font-mono" />
+                    </div>
+                  </div>
+
+                  <!-- Mandatory AICTE Lien Checkbox -->
+                  <div class="p-3.5 rounded-xl bg-[#0b0f0e] border border-[#1e2923] space-y-1">
+                    <label class="flex items-start gap-2.5 cursor-pointer">
+                      <input type="checkbox" id="fdrLienCheck" class="mt-0.5 rounded text-[#14b8a6] focus:ring-0 bg-[#121816] border-[#1e2923]" />
+                      <div class="text-xs">
+                        <span class="font-bold text-[#f8fafc]">AICTE Statutory Joint Lien Endorsement Present</span>
+                        <p class="text-[11px] text-[#94a3b8] mt-0.5">
+                          Certified that receipt bears endorsement: <em>"Jointly in the name of Institution and Member Secretary, AICTE"</em> with lien marked to AICTE (APH 2024-25 Clause 4.2).
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="flex items-center justify-end gap-3 pt-3">
+                    <button type="reset" class="px-4 py-2 rounded-lg text-xs font-semibold text-[#94a3b8] hover:text-[#f8fafc]">
+                      Clear
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 rounded-lg text-xs font-bold text-[#0b0f0e] bg-gradient-to-r from-[#14b8a6] to-[#2dd4bf] hover:opacity-95 shadow-md shadow-[#14b8a6]/20 transition flex items-center gap-2">
+                      <i data-lucide="send" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                      <span>Submit FDR to Regulation Bureau</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: DEPOSIT REGISTRY TABLE -->
+          <div id="coordViewRegistry" class="hidden space-y-4">
+            <div class="flex items-center gap-2">
+              <button onclick="filterCoordRegistry('all')" class="filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#14b8a6] text-[#0b0f0e]" data-filter="all">All (6)</button>
+              <button onclick="filterCoordRegistry('active')" class="filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#94a3b8] hover:text-[#f8fafc]" data-filter="active">Active (2)</button>
+              <button onclick="filterCoordRegistry('expiring')" class="filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#94a3b8] hover:text-[#f8fafc]" data-filter="expiring">Expiring Soon (1)</button>
+              <button onclick="filterCoordRegistry('flagged')" class="filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#94a3b8] hover:text-[#f8fafc]" data-filter="flagged">Flagged (1)</button>
+            </div>
+
+            <div class="bg-[#121816] rounded-xl border border-[#1e2923] overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="bg-[#0b0f0e] border-b border-[#1e2923] text-[#94a3b8] font-semibold uppercase tracking-wider">
+                      <th class="py-3 px-4">FDR Ref / UTR</th>
+                      <th class="py-3 px-4">Issuing Bank &amp; Branch</th>
+                      <th class="py-3 px-4">Deposit Amount</th>
+                      <th class="py-3 px-4">Interest Rate</th>
+                      <th class="py-3 px-4">Maturity Date</th>
+                      <th class="py-3 px-4">AICTE Lien</th>
+                      <th class="py-3 px-4">Status</th>
+                      <th class="py-3 px-4 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="coordTableBody" class="divide-y divide-[#1e2923]">
+                    <!-- Injected via JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 3: RENEWALS & REFUNDS (Dedicated Dynamic State) -->
+          <div id="coordViewReleases" class="hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <!-- Renewal Mandate Form -->
+              <div class="p-6 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-amber-950/40 text-amber-400 flex items-center justify-center">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#f8fafc]">FDR Renewal Mandate</h3>
+                    <p class="text-xs text-[#94a3b8]">Initiate extension for instruments approaching or past maturity.</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3 pt-2 text-xs">
+                  <div>
+                    <label class="block font-medium text-[#94a3b8] mb-1">Select Maturing Instrument</label>
+                    <select id="renewalInstrumentSelect" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] focus:outline-none">
+                      <option value="BOB-FDR-2021-90342">BOB-FDR-2021-90342 (Matured 18 Oct 2026 - ₹ 25 Lakh)</option>
+                      <option value="HDFC-FDR-2023-11204">HDFC-FDR-2023-11204 (Expiring 10 Nov 2026 - ₹ 45 Lakh)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block font-medium text-[#94a3b8] mb-1">Renewal Extension Period</label>
+                    <select id="renewalPeriodSelect" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] focus:outline-none">
+                      <option value="3 Years">3 Years (Standard Extension - AICTE Reg. 2024)</option>
+                      <option value="5 Years">5 Years (Autonomous Trust Tenure)</option>
+                    </select>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    onclick="submitRenewalMandateAction()" 
+                    class="w-full py-2.5 rounded-lg font-bold text-[#0b0f0e] bg-amber-400 hover:bg-amber-300 transition flex items-center justify-center gap-1.5 shadow-sm"
+                  >
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span>Submit Renewal Mandate</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Security Deposit Release Application Form -->
+              <div class="p-6 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-[#18211e] text-[#2dd4bf] flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#f8fafc]">Security Deposit Refund / NOC</h3>
+                    <p class="text-xs text-[#94a3b8]">Request deposit release upon approved course closure or tenure maturity.</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3 pt-2 text-xs">
+                  <div>
+                    <label class="block font-medium text-[#94a3b8] mb-1">Select Instrument</label>
+                    <select id="refundInstrumentSelect" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] focus:outline-none">
+                      <option value="SBI-FDR-2024-88910">SBI-FDR-2024-88910 (PGDM Intake Security - ₹ 50 Lakh)</option>
+                      <option value="CANARA-FDR-2022-33100">CANARA-FDR-2022-33100 (B.Tech Intake - ₹ 30 Lakh)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block font-medium text-[#94a3b8] mb-1">Statutory Reason for Release</label>
+                    <select id="refundReasonSelect" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc] focus:outline-none">
+                      <option>Permanent Closure of Program (Approved by AICTE Council)</option>
+                      <option>Tenure Expiry (10 Years Autonomous Compliance Completed)</option>
+                    </select>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    onclick="submitRefundApplicationAction()" 
+                    class="w-full py-2.5 rounded-lg font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] transition flex items-center justify-center gap-1.5 shadow-sm"
+                  >
+                    <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                    <span>Generate Release Application</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- DEDICATED TABLE 1: ACTIVE RENEWAL REQUESTS -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">Active FDR Renewal Requests</h4>
+                <span class="text-xs text-[#94a3b8]" id="renewalRequestsCount">1 Active Request</span>
+              </div>
+              <div class="bg-[#121816] rounded-xl border border-[#1e2923] overflow-hidden">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="bg-[#0b0f0e] border-b border-[#1e2923] text-[#94a3b8] font-semibold uppercase tracking-wider">
+                      <th class="py-2.5 px-4">Mandate ID</th>
+                      <th class="py-2.5 px-4">FDR Ref</th>
+                      <th class="py-2.5 px-4">Bank</th>
+                      <th class="py-2.5 px-4">Amount</th>
+                      <th class="py-2.5 px-4">Extension</th>
+                      <th class="py-2.5 px-4">Date Filed</th>
+                      <th class="py-2.5 px-4">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="renewalRequestsTableBody" class="divide-y divide-[#1e2923]">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- DEDICATED TABLE 2: REFUND / NOC APPLICATIONS -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">Security Deposit Refund / NOC Requests</h4>
+                <span class="text-xs text-[#94a3b8]" id="refundRequestsCount">1 Active Request</span>
+              </div>
+              <div class="bg-[#121816] rounded-xl border border-[#1e2923] overflow-hidden">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="bg-[#0b0f0e] border-b border-[#1e2923] text-[#94a3b8] font-semibold uppercase tracking-wider">
+                      <th class="py-2.5 px-4">Application ID</th>
+                      <th class="py-2.5 px-4">FDR Ref</th>
+                      <th class="py-2.5 px-4">Reason</th>
+                      <th class="py-2.5 px-4">Amount</th>
+                      <th class="py-2.5 px-4">Date Filed</th>
+                      <th class="py-2.5 px-4">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="refundRequestsTableBody" class="divide-y divide-[#1e2923]">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- -------------------------------------------------- -->
+        <!-- VIEW 2: REGULATION OFFICER DEDICATED PAGE          -->
+        <!-- -------------------------------------------------- -->
+        <section id="pageOfficer" class="hidden space-y-6">
+          
+          <!-- Banner & Batch Action -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1e2923] pb-4">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#2dd4bf]">REGULATION INSPECTION BUREAU · REGIONAL JURISDICTION NW-04</span>
+              <h1 class="text-2xl font-extrabold text-[#f8fafc] tracking-tight mt-0.5">Verification &amp; Discrepancy Command</h1>
+            </div>
+
+            <!-- Batch Verification Capability -->
+            <button 
+              id="btnOfficerBatchApprove"
+              onclick="runOfficerBatchApproval()" 
+              class="px-4 py-2 rounded-xl text-xs font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] shadow-lg shadow-[#14b8a6]/20 transition flex items-center gap-1.5"
+            >
+              <i data-lucide="check-check" class="w-4 h-4 stroke-[2.5]"></i>
+              <span id="batchBtnText">Batch Approve Verified (2)</span>
+            </button>
+          </div>
+
+          <!-- Officer 4-Metric Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">TOTAL REGIONAL VOLUME</div>
+              <div class="text-2xl font-black text-[#f8fafc] tracking-tight">₹ 18.60 Cr</div>
+              <div class="text-[11px] text-[#94a3b8]">12 Participating Colleges</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#2dd4bf]">SFMS LIVE LINK</div>
+              <div class="text-2xl font-black text-[#2dd4bf] tracking-tight">100% Live</div>
+              <div class="text-[11px] text-[#2dd4bf]">National Banking Gateway</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">FLAGGED DISCREPANCIES</div>
+              <div class="text-2xl font-black text-amber-400 tracking-tight" id="officerFlaggedCount">01</div>
+              <div class="text-[11px] text-amber-400">1 awaiting adjudication</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">INSPECTION LATENCY</div>
+              <div class="text-2xl font-black text-[#f8fafc] tracking-tight">12 ms</div>
+              <div class="text-[11px] text-[#94a3b8]">Realtime CBS switch</div>
+            </div>
+          </div>
+
+          <!-- Sub-Views: Verification Queue (Split Inspector) vs Approved Certificates -->
+          
+          <!-- OFFICER VIEW 1: SPLIT INSPECTOR -->
+          <div id="officerViewInspector" class="space-y-4">
+            
+            <!-- Queue Navigation / Switcher Bar -->
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">Split Inspector: Scanned Certificate vs. Bank SFMS Feed</span>
+                <span id="officerQueueBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]">Queue: 3 Pending</span>
+              </div>
+              
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-[#94a3b8]">Current Document:</span>
+                <select 
+                  id="officerDocSelector" 
+                  onchange="loadOfficerInspectionRecord(this.value)" 
+                  class="text-xs font-medium py-1 px-3 rounded-lg bg-[#121816] border border-[#1e2923] text-[#f8fafc] focus:outline-none cursor-pointer"
+                >
+                  <!-- Populated dynamically from officer queue -->
+                </select>
+              </div>
+            </div>
+
+            <!-- Empty Queue Container (Shown when all queue items approved/rejected) -->
+            <div id="officerEmptyQueueState" class="hidden p-12 text-center rounded-2xl bg-[#121816] border border-[#1e2923] space-y-4">
+              <div class="w-16 h-16 rounded-full bg-[#18211e] text-[#2dd4bf] mx-auto flex items-center justify-center">
+                <i data-lucide="check-circle-2" class="w-8 h-8 stroke-[2.5]"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#f8fafc]">All pending instruments verified successfully</h3>
+                <p class="text-xs text-[#94a3b8] max-w-md mx-auto mt-1">No items remaining in the verification queue. All digital certificates have been sealed and archived to the regulatory ledger.</p>
+              </div>
+              <button onclick="switchOfficerView('certificates')" class="px-4 py-2 rounded-lg text-xs font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] transition">
+                View Approved Certificates
+              </button>
+            </div>
+
+            <!-- Active Split Screen Grid -->
+            <div id="officerActiveSplitGrid" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+              <!-- Left: Scanned Document Preview (6 cols) -->
+              <div class="lg:col-span-6 p-4 rounded-xl bg-[#121816] border border-[#1e2923] flex flex-col space-y-3">
+                <div class="flex items-center justify-between border-b border-[#1e2923] pb-2">
+                  <span class="text-xs font-bold text-[#f8fafc]" id="officerScannedTitle">Scanned Instrument: PNB-FDR-2024-77412</span>
+                  <button onclick="toggleDocZoomOfficer()" class="p-1 rounded text-[#94a3b8] hover:text-[#f8fafc]" title="Toggle Zoom">
+                    <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                  </button>
+                </div>
+
+                <div class="relative w-full h-[420px] bg-[#0b0f0e] rounded-lg overflow-hidden border border-[#1e2923] flex items-center justify-center p-2">
+                  <img id="officerPreviewImg" src="assets/sample-fdr-pnb.svg" alt="Document Inspection" class="max-w-full max-h-full object-contain transition-transform duration-300" />
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-[#94a3b8] font-mono">
+                  <span id="officerPreviewCollege">Delhi Technical Campus</span>
+                  <span id="officerDocHashText">Hash: 0x3e198a72bdf0...</span>
+                </div>
+              </div>
+
+              <!-- Right: Comparison Matrix & Actions (6 cols) -->
+              <div class="lg:col-span-6 space-y-4">
+                
+                <!-- Discrepancy Callout -->
+                <div id="officerAlertBanner" class="p-4 rounded-xl bg-amber-950/30 border border-amber-800/80 space-y-2">
+                  <div class="flex items-center gap-2 text-xs font-bold text-amber-400">
+                    <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                    <span id="officerAlertHeading">AI Discrepancy Detected (2 Anomalies)</span>
+                  </div>
+                  <ul id="officerAlertUl" class="text-xs text-amber-200 space-y-1 pl-5 list-disc">
+                    <li>AICTE Lien Clause Mismatch: Scanned endorsement lacks specific "Member Secretary, AICTE" legal clause.</li>
+                    <li>Interest Rate Disparity: Physical receipt shows 6.80% p.a. while Bank SFMS feed records 7.10% p.a.</li>
+                  </ul>
+                </div>
+
+                <!-- Clean Attribute Validation Matrix -->
+                <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-3">
+                  <div class="flex items-center justify-between border-b border-[#1e2923] pb-2.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">Attribute Validation Matrix</span>
+                    <span class="text-[11px] text-[#2dd4bf] font-semibold flex items-center gap-1">
+                      <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                      <span>SFMS Live Feed: Connected</span>
+                    </span>
+                  </div>
+
+                  <div class="space-y-2 text-xs">
+                    <!-- Principal Deposit -->
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-[#0b0f0e]">
+                      <span class="text-[#94a3b8]">Principal Deposit:</span>
+                      <div class="font-sans font-semibold flex items-center gap-2">
+                        <span id="cmpValOcrAmount" class="text-[#f8fafc]">₹ 35.00 Lakh</span>
+                        <span class="text-[#1e2923]">|</span>
+                        <span id="cmpValBankAmount" class="text-[#2dd4bf]">Bank: ₹ 35.00 Lakh ✓</span>
+                      </div>
+                    </div>
+
+                    <!-- Interest Rate -->
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-[#0b0f0e]">
+                      <span class="text-[#94a3b8]">Interest Rate:</span>
+                      <div class="font-sans font-semibold flex items-center gap-2">
+                        <span id="cmpValOcrRate" class="text-amber-400">OCR: 6.80%</span>
+                        <span class="text-[#1e2923]">|</span>
+                        <span id="cmpValBankRate" class="text-rose-400">Bank SFMS: 7.10% ⚠️</span>
+                      </div>
+                    </div>
+
+                    <!-- Lien Endorsement -->
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-[#0b0f0e]">
+                      <span class="text-[#94a3b8]">Lien Endorsement:</span>
+                      <div class="font-sans font-semibold flex items-center gap-2">
+                        <span id="cmpValOcrLien" class="text-amber-400">General College Trust</span>
+                        <span class="text-[#1e2923]">|</span>
+                        <span id="cmpValBankLien" class="text-rose-400">Lien Not Acknowledged ❌</span>
+                      </div>
+                    </div>
+
+                    <!-- Maturity Date -->
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-[#0b0f0e]">
+                      <span class="text-[#94a3b8]">Maturity Date:</span>
+                      <div class="font-sans font-semibold flex items-center gap-2">
+                        <span id="cmpValOcrMaturity" class="text-[#f8fafc]">2027-06-15</span>
+                        <span class="text-[#1e2923]">|</span>
+                        <span id="cmpValBankMaturity" class="text-[#2dd4bf]">Bank: 2027-06-15 ✓</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Individual Verification Action Buttons -->
+                  <div class="pt-4 border-t border-[#1e2923] flex items-center gap-2">
+                    <button 
+                      onclick="officerApproveCurrentRecord()" 
+                      class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] transition flex items-center justify-center gap-1.5 shadow-sm"
+                    >
+                      <i data-lucide="check" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                      <span>Approve &amp; Issue Certificate</span>
+                    </button>
+
+                    <button 
+                      onclick="openClarificationModal()" 
+                      class="py-2.5 px-3 rounded-xl text-xs font-semibold bg-amber-950/60 hover:bg-amber-900 text-amber-300 border border-amber-800 transition flex items-center gap-1.5"
+                    >
+                      <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                      <span>Clarification</span>
+                    </button>
+
+                    <button 
+                      onclick="openRejectModal()" 
+                      class="py-2.5 px-3 rounded-xl text-xs font-semibold bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800 transition flex items-center gap-1.5"
+                    >
+                      <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+                      <span>Reject</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- OFFICER VIEW 2: APPROVED CERTIFICATES ARCHIVE -->
+          <div id="officerViewCertificates" class="hidden space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-[#f8fafc]">Sealed Regulatory Certificates</h3>
+                <p class="text-xs text-[#94a3b8]">Permanent digital certificates issued to colleges upon full compliance verification.</p>
+              </div>
+              <button onclick="exportRegistryCSV()" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#f8fafc] hover:bg-[#18211e] border border-[#1e2923] flex items-center gap-1.5">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Export Certificates (CSV)</span>
+              </button>
+            </div>
+
+            <div class="bg-[#121816] rounded-xl border border-[#1e2923] overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="bg-[#0b0f0e] border-b border-[#1e2923] text-[#94a3b8] font-semibold uppercase tracking-wider">
+                      <th class="py-3 px-4">Certificate ID</th>
+                      <th class="py-3 px-4">FDR Reference</th>
+                      <th class="py-3 px-4">Institution Name</th>
+                      <th class="py-3 px-4">Issuing Bank</th>
+                      <th class="py-3 px-4">Amount</th>
+                      <th class="py-3 px-4">Date Issued</th>
+                      <th class="py-3 px-4">Signing Officer</th>
+                      <th class="py-3 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="approvedCertsTableBody" class="divide-y divide-[#1e2923]">
+                    <!-- Injected via JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- -------------------------------------------------- -->
+        <!-- VIEW 3: AUDITOR DEDICATED PAGE (Internal & External)-->
+        <!-- -------------------------------------------------- -->
+        <section id="pageAuditor" class="hidden space-y-6">
+          
+          <!-- Banner -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1e2923] pb-4">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#2dd4bf]">STATUTORY &amp; CAG AUDIT OVERSIGHT · CENTRAL FINANCIAL CELL</span>
+              <h1 class="text-2xl font-extrabold text-[#f8fafc] tracking-tight mt-0.5">Cryptographic Audit &amp; Compliance Ledger</h1>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button 
+                onclick="verifyAllCryptographicHashes()" 
+                class="px-3.5 py-2 rounded-xl text-xs font-semibold text-[#f8fafc] bg-[#121816] hover:bg-[#18211e] border border-[#1e2923] transition flex items-center gap-1.5"
+              >
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#2dd4bf]"></i>
+                <span>Verify All Hashes</span>
+              </button>
+              <button 
+                onclick="exportAuditPack()" 
+                class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] transition flex items-center gap-1.5"
+              >
+                <i data-lucide="file-archive" class="w-4 h-4 stroke-[2.5]"></i>
+                <span>Download Audit Pack (JSON)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Auditor 4-Metric Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">TOTAL AUDITED VOLUME</div>
+              <div class="text-2xl font-black text-[#f8fafc] tracking-tight">₹ 18.60 Cr</div>
+              <div class="text-[11px] text-[#94a3b8]">4 Participating Colleges</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">MERKLE CHAIN INTEGRITY</div>
+              <div class="text-2xl font-black text-[#2dd4bf] tracking-tight" id="auditorHashStatus">100% Valid</div>
+              <div class="text-[11px] text-[#2dd4bf]">Zero block tampering</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">DISCREPANCY INCIDENCE</div>
+              <div class="text-2xl font-black text-amber-400 tracking-tight" id="auditorDiscrepancyRate">16.7%</div>
+              <div class="text-[11px] text-amber-400">Statutory threshold &lt; 2.5%</div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-[#121816] border border-[#1e2923] space-y-1">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8]">STATUTORY NODES</div>
+              <div class="text-2xl font-black text-[#f8fafc] tracking-tight">04</div>
+              <div class="text-[11px] text-[#94a3b8]">CAG Synchronized</div>
+            </div>
+          </div>
+
+          <!-- Auditor Sub-Views: Overview vs Merkle Ledger vs Statutory Pack -->
+          
+          <!-- SUB-VIEW 1: AUDIT OVERVIEW & LEDGER TABLE -->
+          <div id="auditorViewOverview" class="space-y-4">
+            
+            <!-- Filters and Granular Sorters -->
+            <div class="p-4 rounded-xl bg-[#121816] border border-[#1e2923] flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[#94a3b8] font-bold">Filter By:</span>
+                
+                <!-- Status Filter -->
+                <select id="auditorFilterStatus" onchange="applyAuditorFilters()" class="py-1 px-2.5 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]">
+                  <option value="all">Status: All (6)</option>
+                  <option value="verified">Verified Compliant (3)</option>
+                  <option value="flagged">Exception Open (1)</option>
+                  <option value="expiring">Expiring Soon (1)</option>
+                  <option value="matured">Matured (1)</option>
+                </select>
+
+                <!-- Institution Filter -->
+                <select id="auditorFilterInst" onchange="applyAuditorFilters()" class="py-1 px-2.5 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]">
+                  <option value="all">Institution: All (4)</option>
+                  <option value="Delhi Technical Campus">Delhi Technical Campus</option>
+                  <option value="Apex Institute of Technology">Apex Institute of Technology</option>
+                  <option value="Meridian Engineering College">Meridian Engineering College</option>
+                  <option value="Quantum School of Business">Quantum School of Business</option>
+                </select>
+
+                <!-- Issuing Bank Filter -->
+                <select id="auditorFilterBank" onchange="applyAuditorFilters()" class="py-1 px-2.5 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]">
+                  <option value="all">Issuing Bank: All Banks</option>
+                  <option value="State Bank of India">State Bank of India</option>
+                  <option value="Punjab National Bank">Punjab National Bank</option>
+                  <option value="HDFC Bank">HDFC Bank</option>
+                  <option value="ICICI Bank">ICICI Bank</option>
+                  <option value="Bank of Baroda">Bank of Baroda</option>
+                  <option value="Canara Bank">Canara Bank</option>
+                </select>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="text-[#94a3b8]">Click hash to copy · Granular controls enabled</span>
+              </div>
+            </div>
+
+            <!-- Auditor Unified Ledger -->
+            <div class="bg-[#121816] rounded-xl border border-[#1e2923] overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="bg-[#0b0f0e] border-b border-[#1e2923] text-[#94a3b8] font-semibold uppercase tracking-wider">
+                      <th class="py-3 px-4">Instrument ID</th>
+                      <th class="py-3 px-4">Institution Name</th>
+                      <th class="py-3 px-4">Issuing Bank</th>
+                      <th class="py-3 px-4">Amount</th>
+                      <th class="py-3 px-4">Cryptographic Hash (SHA-256)</th>
+                      <th class="py-3 px-4">Audit Status</th>
+                      <th class="py-3 px-4 text-right">Granular Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="auditorTableBody" class="divide-y divide-[#1e2923]">
+                    <!-- Injected via JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: IMMUTABLE MERKLE LEDGER -->
+          <div id="auditorViewMerkle" class="hidden space-y-6">
+            <div class="p-6 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+              <div class="flex items-center justify-between border-b border-[#1e2923] pb-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-[#18211e] text-[#2dd4bf] flex items-center justify-center">
+                    <i data-lucide="git-merge" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#f8fafc]">AICTE Master Merkle Root Verification</h3>
+                    <p class="text-xs text-[#94a3b8]">Cryptographic SHA-256 state proof ensuring non-repudiation and CAG regulatory compliance.</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]">ROOT #1049 ANCHORED</span>
+                </div>
+              </div>
+
+              <!-- Merkle Tree Visualization -->
+              <div class="space-y-4 pt-2">
+                
+                <!-- Root Node -->
+                <div class="max-w-lg mx-auto p-4 rounded-xl bg-[#0b0f0e] border-2 border-[#14b8a6] text-center space-y-1 shadow-lg shadow-[#14b8a6]/10">
+                  <span class="text-[10px] uppercase font-bold text-[#2dd4bf]">MERKLE ROOT HASH</span>
+                  <div class="text-xs font-mono font-bold text-[#f8fafc] break-all">0x7a89f310e43a9921bcfa203810f44b2a89012fce</div>
+                  <span class="text-[10px] text-[#94a3b8]">Status: Sealed · Verified by AICTE National Trust Node</span>
+                </div>
+
+                <!-- Vertical Connector Line -->
+                <div class="w-0.5 h-6 bg-[#1e2923] mx-auto"></div>
+
+                <!-- Intermediate Branches (L1 & R1) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="p-3.5 rounded-xl bg-[#0b0f0e] border border-[#1e2923] text-center space-y-1">
+                    <span class="text-[10px] uppercase font-semibold text-[#2dd4bf]">BRANCH NODE L1 (NORTH &amp; WEST REGIONS)</span>
+                    <div class="text-[11px] font-mono text-[#94a3b8] break-all">0x44b2a89012fce990145...</div>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-[#0b0f0e] border border-[#1e2923] text-center space-y-1">
+                    <span class="text-[10px] uppercase font-semibold text-[#2dd4bf]">BRANCH NODE R1 (SOUTH &amp; EAST REGIONS)</span>
+                    <div class="text-[11px] font-mono text-[#94a3b8] break-all">0x8f2a4c9e144a79b0271...</div>
+                  </div>
+                </div>
+
+                <!-- Leaf Hashes (Participating Institutions) -->
+                <div class="pt-4 border-t border-[#1e2923] space-y-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-[#94a3b8] block">Statutory Leaf Nodes (Active Receipts):</span>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div class="p-3 rounded-lg bg-[#0b0f0e] border border-[#1e2923]">
+                      <div class="font-bold text-[#f8fafc]">Delhi Technical Campus</div>
+                      <div class="text-[10px] text-[#2dd4bf] font-mono mt-0.5">SBI-FDR-2024-88910</div>
+                      <div class="text-[10px] text-[#94a3b8] font-mono truncate mt-1">Hash: 0x8f2a4c9e144a...</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-[#0b0f0e] border border-[#1e2923]">
+                      <div class="font-bold text-[#f8fafc]">Apex Institute of Tech</div>
+                      <div class="text-[10px] text-[#2dd4bf] font-mono mt-0.5">HDFC-FDR-2023-11204</div>
+                      <div class="text-[10px] text-[#94a3b8] font-mono truncate mt-1">Hash: 0x9c44510a221f...</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-[#0b0f0e] border border-[#1e2923]">
+                      <div class="font-bold text-[#f8fafc]">Meridian Eng College</div>
+                      <div class="text-[10px] text-[#2dd4bf] font-mono mt-0.5">ICICI-FDR-2024-44019</div>
+                      <div class="text-[10px] text-[#94a3b8] font-mono truncate mt-1">Hash: 0x1a87b55c2901...</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-[#0b0f0e] border border-[#1e2923]">
+                      <div class="font-bold text-[#f8fafc]">Quantum School of Bus</div>
+                      <div class="text-[10px] text-[#2dd4bf] font-mono mt-0.5">CANARA-FDR-2022-33100</div>
+                      <div class="text-[10px] text-[#94a3b8] font-mono truncate mt-1">Hash: 0x55018e4ba102...</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-2 text-center">
+                  <button onclick="verifyAllCryptographicHashes()" class="px-5 py-2.5 rounded-xl text-xs font-bold text-[#0b0f0e] bg-gradient-to-r from-[#14b8a6] to-[#2dd4bf] hover:opacity-95 shadow-md shadow-[#14b8a6]/20 transition">
+                    Run Mathematical Zero-Knowledge Proof Check
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 3: STATUTORY PACK & CAG EXPORTS -->
+          <div id="auditorViewStatutory" class="hidden space-y-6">
+            <div class="p-6 rounded-xl bg-[#121816] border border-[#1e2923] space-y-4">
+              <div>
+                <h3 class="text-sm font-bold text-[#f8fafc]">Official CAG &amp; Ministry Audit Compliance Pack</h3>
+                <p class="text-xs text-[#94a3b8]">Export digitally signed compliance statements formatted per Comptroller and Auditor General standards.</p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div class="p-4 rounded-xl bg-[#0b0f0e] border border-[#1e2923] space-y-1">
+                  <span class="text-[10px] font-bold text-[#94a3b8]">CAG COMPLIANCE INDEX</span>
+                  <div class="text-xl font-black text-[#2dd4bf]">99.2%</div>
+                  <p class="text-[11px] text-[#94a3b8]">All statutory deposits secured with scheduled banks</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#0b0f0e] border border-[#1e2923] space-y-1">
+                  <span class="text-[10px] font-bold text-[#94a3b8]">STATUTORY RESERVE</span>
+                  <div class="text-xl font-black text-[#f8fafc]">₹ 18.60 Cr</div>
+                  <p class="text-[11px] text-[#94a3b8]">100% lien acknowledged via SFMS</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#0b0f0e] border border-[#1e2923] space-y-1">
+                  <span class="text-[10px] font-bold text-[#94a3b8]">AUDIT TRAIL HEIGHT</span>
+                  <div class="text-xl font-black text-[#f8fafc]">1,049 Blocks</div>
+                  <p class="text-[11px] text-[#2dd4bf]">Tamper-evident SHA-256 chain</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-[#18211e] border border-[#1e2923] flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+                <div>
+                  <h4 class="text-xs font-bold text-[#f8fafc]">Download Complete Statutory Registry</h4>
+                  <p class="text-[11px] text-[#94a3b8]">Includes all FDR references, amounts, SFMS transaction IDs, and cryptographic hashes.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="exportRegistryCSV()" class="px-4 py-2 rounded-lg text-xs font-bold text-[#0b0f0e] bg-[#14b8a6] hover:bg-[#2dd4bf] transition flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                    <span>Export Statutory Registry (CSV)</span>
+                  </button>
+                  <button onclick="exportAuditPack()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-[#121816] text-[#f8fafc] hover:bg-[#18211e] border border-[#1e2923] transition flex items-center gap-1.5">
+                    <i data-lucide="file-code" class="w-3.5 h-3.5"></i>
+                    <span>Export CAG JSON</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- ==================================================== -->
+      <!-- IMMUTABLE AUDIT TRAIL TIMELINE DRAWER                -->
+      <!-- ==================================================== -->
+      <div id="auditTrailDrawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-modal="true">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuditDrawer()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+          <div class="w-screen max-w-lg bg-[#121816] shadow-2xl border-l border-[#1e2923] p-6 flex flex-col justify-between overflow-y-auto">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between border-b border-[#1e2923] pb-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="git-branch" class="w-4 h-4 text-[#2dd4bf]"></i>
+                    <h3 class="font-bold text-sm text-[#f8fafc]" id="drawerRefTitle">Audit Trail: FDR-88910</h3>
+                  </div>
+                  <p class="text-xs text-[#94a3b8] mt-0.5">Immutable Cryptographic Touchpoint Timeline</p>
+                </div>
+                <button onclick="closeAuditDrawer()" class="p-1 rounded text-[#94a3b8] hover:text-[#f8fafc]">
+                  <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+              </div>
+
+              <!-- Integrity Badge -->
+              <div class="p-3 rounded-xl bg-[#18211e] border border-[#1e2923] flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2 text-[#2dd4bf] font-semibold">
+                  <i data-lucide="check-circle" class="w-4 h-4"></i>
+                  <span>Merkle Hash Verification: Verified</span>
+                </div>
+                <span class="text-[10px] font-mono text-[#2dd4bf]">Block Height #1049</span>
+              </div>
+
+              <!-- Timeline Nodes -->
+              <div class="relative pl-6 space-y-6 border-l-2 border-[#1e2923] ml-3" id="timelineNodesList">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#1e2923] flex items-center justify-between text-xs">
+              <span class="text-[#94a3b8]">Anchor: AICTE Trust Fabric</span>
+              <button onclick="closeAuditDrawer()" class="px-4 py-2 rounded-lg bg-[#18211e] text-[#f8fafc] font-semibold hover:bg-[#1e2923]">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- OFFICIAL DIGITAL CERTIFICATE MODAL                   -->
+      <!-- ==================================================== -->
+      <div id="modalCertificate" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal('modalCertificate')"></div>
+        <div class="relative bg-[#121816] rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#1e2923] space-y-4">
+          <div class="flex items-center justify-between border-b border-[#1e2923] pb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-[#14b8a6] text-[#0b0f0e] flex items-center justify-center font-black text-xs">
+                AICTE
+              </div>
+              <h3 class="font-bold text-sm text-[#f8fafc]">Official Digital Compliance Certificate</h3>
+            </div>
+            <button onclick="closeModal('modalCertificate')" class="text-[#94a3b8] hover:text-[#f8fafc]">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div id="certModalContent" class="space-y-4 text-xs">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-3 border-t border-[#1e2923]">
+            <button onclick="closeModal('modalCertificate')" class="px-4 py-2 rounded-lg text-xs font-semibold text-[#94a3b8]">Close</button>
+            <button onclick="printCertificate()" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#14b8a6] text-[#0b0f0e] hover:bg-[#2dd4bf] flex items-center gap-1.5">
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+              <span>Print / Download Certificate</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- ACTION MODALS (REJECT & CLARIFY)                     -->
+      <!-- ==================================================== -->
+      <div id="modalReject" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal('modalReject')"></div>
+        <div class="relative bg-[#121816] rounded-xl max-w-md w-full p-6 shadow-2xl border border-[#1e2923] space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-rose-400 flex items-center gap-2">
+              <i data-lucide="x-circle" class="w-4 h-4"></i>
+              <span>Reject FDR Submission</span>
+            </h3>
+            <button onclick="closeModal('modalReject')" class="text-[#94a3b8] hover:text-[#f8fafc]">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <p class="text-xs text-[#94a3b8]">
+            Select statutory non-compliance reason. The coordinator will be notified to re-upload a compliant instrument.
+          </p>
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block font-medium text-[#94a3b8] mb-1">Primary Reason</label>
+              <select id="rejectReasonSelect" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]">
+                <option>Missing mandatory Member Secretary AICTE Joint Lien Clause</option>
+                <option>Interest rate or tenure disparity with SFMS Core Banking Record</option>
+                <option>Unauthorized bank branch / Unscheduled cooperative bank</option>
+                <option>Illegible scan / Bank seal and signature not clear</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-[#94a3b8] mb-1">Specific Officer Remarks</label>
+              <textarea id="rejectRemarks" rows="2" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" placeholder="Refer to APH 2024-25 Clause 4.2..."></textarea>
+            </div>
+          </div>
+          <div class="flex items-center justify-end gap-2 pt-2">
+            <button onclick="closeModal('modalReject')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-[#94a3b8]">Cancel</button>
+            <button onclick="confirmRejectRecord()" class="px-4 py-2 rounded-lg text-xs font-bold bg-rose-600 text-white hover:bg-rose-500">Confirm Rejection</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalClarify" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal('modalClarify')"></div>
+        <div class="relative bg-[#121816] rounded-xl max-w-md w-full p-6 shadow-2xl border border-[#1e2923] space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
+              <i data-lucide="help-circle" class="w-4 h-4"></i>
+              <span>Request Clarification</span>
+            </h3>
+            <button onclick="closeModal('modalClarify')" class="text-[#94a3b8] hover:text-[#f8fafc]">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <p class="text-xs text-[#94a3b8]">
+            Send an official notice to the college coordinator to submit bank confirmation letter.
+          </p>
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block font-medium text-[#94a3b8] mb-1">Subject</label>
+              <input type="text" id="clarifySubject" value="Bank CBS Interest Rate Variance - Explanation Required" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]" />
+            </div>
+            <div>
+              <label class="block font-medium text-[#94a3b8] mb-1">Clarification Notice Text</label>
+              <textarea id="clarifyNotes" rows="3" class="w-full px-3 py-2 rounded-lg bg-[#0b0f0e] border border-[#1e2923] text-[#f8fafc]">Please provide an official bank endorsement letter from the Branch Manager confirming the quarterly compounding interest agreement.</textarea>
+            </div>
+          </div>
+          <div class="flex items-center justify-end gap-2 pt-2">
+            <button onclick="closeModal('modalClarify')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-[#94a3b8]">Cancel</button>
+            <button onclick="confirmClarificationRequest()" class="px-4 py-2 rounded-lg text-xs font-bold bg-amber-600 text-[#0b0f0e] hover:bg-amber-500">Send Notice</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- FLOATING AI ASSISTANT ("VaultIQ Saathi")             -->
+      <!-- Strictly Hidden on Login Screen                      -->
+      <!-- ==================================================== -->
+      <div id="saathiContainer" class="fixed bottom-5 right-5 z-40 hidden">
+        <button 
+          id="saathiToggleBtn" 
+          onclick="toggleSaathiDrawer()" 
+          class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#121816] hover:bg-[#18211e] border border-[#1e2923] text-[#f8fafc] shadow-xl hover:border-[#14b8a6]/60 transition focus:outline-none"
+          aria-label="Open VaultIQ Saathi AI Assistant"
+        >
+          <div class="w-5 h-5 rounded-md bg-[#14b8a6]/20 text-[#2dd4bf] flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+          </div>
+          <span class="text-xs font-bold text-[#f8fafc]">VaultIQ Saathi</span>
+          <span class="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse"></span>
+        </button>
+
+        <div 
+          id="saathiDrawer" 
+          class="hidden absolute bottom-14 right-0 w-80 sm:w-96 bg-[#121816] rounded-2xl shadow-2xl border border-[#1e2923] flex flex-col overflow-hidden transition"
+          style="height: 480px;"
+        >
+          <div class="p-3.5 bg-[#0b0f0e] text-[#f8fafc] flex items-center justify-between border-b border-[#1e2923]">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-md bg-[#14b8a6] flex items-center justify-center text-[#0b0f0e] font-bold text-xs">
+                IQ
+              </div>
+              <div>
+                <h4 class="font-bold text-xs">VaultIQ Saathi</h4>
+                <p class="text-[10px] text-[#94a3b8]" id="saathiRoleSub">AICTE Regulatory Assistant</p>
+              </div>
+            </div>
+            <button onclick="toggleSaathiDrawer()" class="p-1 text-[#94a3b8] hover:text-[#f8fafc]">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="p-2 bg-[#0b0f0e] border-b border-[#1e2923] overflow-x-auto flex items-center gap-1.5" id="saathiChips">
+            <!-- Injected by JS -->
+          </div>
+
+          <div id="saathiMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
+            <div class="flex gap-2">
+              <div class="w-6 h-6 rounded-full bg-[#18211e] text-[#2dd4bf] flex items-center justify-center shrink-0 text-[10px] font-bold">
+                IQ
+              </div>
+              <div class="p-3 rounded-xl rounded-tl-none bg-[#0b0f0e] text-[#f8fafc] text-xs leading-relaxed border border-[#1e2923]">
+                Greetings. I am <strong>VaultIQ Saathi</strong>. I can assist with AICTE Approval Process Handbook (APH 2024–25) security deposit norms, mandatory joint lien clause phrasing, and SFMS reconciliation procedures.
+              </div>
+            </div>
+          </div>
+
+          <form onsubmit="handleSaathiSubmit(event)" class="p-2 bg-[#0b0f0e] border-t border-[#1e2923] flex items-center gap-2">
+            <input 
+              type="text" 
+              id="saathiInput" 
+              placeholder="Ask about AICTE FDR guidelines..." 
+              class="flex-1 px-3 py-2 text-xs rounded-lg bg-[#121816] border border-[#1e2923] text-[#f8fafc] placeholder-[#94a3b8] focus:outline-none focus:border-[#14b8a6]"
+            />
+            <button type="submit" class="p-2 rounded-lg bg-[#14b8a6] text-[#0b0f0e] hover:bg-[#2dd4bf] transition" aria-label="Send message">
+              <i data-lucide="send" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Toast Container -->
+      <div id="toastContainer" class="fixed top-20 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+      <!-- ==================================================== -->
+      <!-- GLOBAL FOOTER                                        -->
+      <!-- ==================================================== -->
+      <footer class="mt-auto border-t border-[#1e2923] py-5 text-xs text-[#94a3b8]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-[#f8fafc]">VaultIQ</span>
+            <span>· All India Council for Technical Education (AICTE) Regulation Bureau</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] font-mono text-[#94a3b8]">
+            <span>SFMS GATEWAY: ACTIVE</span>
+            <span>·</span>
+            <span class="text-[#2dd4bf]">SHA256 LEDGER ANCHORED</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- JAVASCRIPT CONTROLLER (Modular & Self-Contained)     -->
+    <!-- ==================================================== -->
+    <script>
+      /**
+       * VaultIQ State
+       */
+      const VAULT_STATE = {
+        currentRole: null, // null (login) | 'coordinator' | 'officer' | 'auditor'
+        selectedLoginRole: 'coordinator',
+        language: 'en',
+        theme: 'dark',
+        
+        // Staged OCR file waiting for "Run OCR" button click
+        pendingOcrDoc: {
+          filename: 'sample-fdr-sbi.svg',
+          assetSrc: 'assets/sample-fdr-sbi.svg',
+          isStaged: true,
+          isValid: true,
+          error: null,
+          data: {
+            ref: 'SBI-FDR-2024-88910',
+            bank: 'State Bank of India',
+            branch: 'Connaught Place Branch (SBIN0000691)',
+            amount: 5000000,
+            interest: 7.25,
+            issue: '2024-05-10',
+            maturity: '2027-05-10',
+            lien: true,
+            sfms: 'SFMS241029881920-IND'
+          }
+        },
+
+        // Master Deposit Records
+        records: [
+          {
+            id: 'SBI-FDR-2024-88910',
+            refNumber: 'SBI-FDR-2024-88910',
+            institutionName: 'Delhi Technical Campus',
+            institutionCode: '1-932145',
+            bankName: 'State Bank of India',
+            branch: 'Connaught Place Branch (SBIN0000691)',
+            amount: 5000000,
+            interestRate: 7.25,
+            issueDate: '2024-05-10',
+            maturityDate: '2027-05-10',
+            lienMarked: true,
+            status: 'active',
+            auditorStatus: 'verified',
+            sfmsTxnId: 'SFMS241029881920-IND',
+            hash: '0x8f2a4c9e144a79b0271c08f918e5',
+            assetImg: 'assets/sample-fdr-sbi.svg'
+          },
+          {
+            id: 'PNB-FDR-2024-77412',
+            refNumber: 'PNB-FDR-2024-77412',
+            institutionName: 'Apex Institute of Technology',
+            institutionCode: '1-840219',
+            bankName: 'Punjab National Bank',
+            branch: 'Sector 62 Noida (PUNB0123400)',
+            amount: 3500000,
+            interestRate: 6.80,
+            issueDate: '2024-06-15',
+            maturityDate: '2027-06-15',
+            lienMarked: false, // Flagged discrepancy
+            status: 'flagged',
+            auditorStatus: 'rejected',
+            discrepancies: [
+              'AICTE Lien Clause Mismatch: Lacks explicit Member Secretary endorsement clause.',
+              'Rate variance: Scanned document states 6.80% vs Bank CBS 7.10%.'
+            ],
+            sfmsTxnId: 'SFMS240811900341-PNB',
+            hash: '0x3e198a72bdf0012c4488fa7210bc',
+            assetImg: 'assets/sample-fdr-pnb.svg'
+          },
+          {
+            id: 'HDFC-FDR-2023-11204',
+            refNumber: 'HDFC-FDR-2023-11204',
+            institutionName: 'Meridian Engineering College',
+            institutionCode: '1-772901',
+            bankName: 'HDFC Bank',
+            branch: 'South Extension II (HDFC0000120)',
+            amount: 4500000,
+            interestRate: 7.00,
+            issueDate: '2023-11-10',
+            maturityDate: '2026-11-10',
+            lienMarked: true,
+            status: 'expiring',
+            auditorStatus: 'verified',
+            sfmsTxnId: 'SFMS231110098231-HDF',
+            hash: '0x9c44510a221f78da3341b590e8a2',
+            assetImg: 'assets/sample-fdr-sbi.svg'
+          },
+          {
+            id: 'BOB-FDR-2021-90342',
+            refNumber: 'BOB-FDR-2021-90342',
+            institutionName: 'Delhi Technical Campus',
+            institutionCode: '1-932145',
+            bankName: 'Bank of Baroda',
+            branch: 'Nehru Place (BARB0NEHRUP)',
+            amount: 2500000,
+            interestRate: 6.50,
+            issueDate: '2021-10-18',
+            maturityDate: '2026-10-18',
+            lienMarked: true,
+            status: 'matured',
+            auditorStatus: 'rejected',
+            sfmsTxnId: 'SFMS211018991044-BOB',
+            hash: '0x7b11c900e43a9921bcfa203810f4',
+            assetImg: 'assets/sample-fdr-sbi.svg'
+          },
+          {
+            id: 'ICICI-FDR-2024-44019',
+            refNumber: 'ICICI-FDR-2024-44019',
+            institutionName: 'Quantum School of Business',
+            institutionCode: '1-651893',
+            bankName: 'ICICI Bank',
+            branch: 'Saket District Centre (ICIC0000045)',
+            amount: 6000000,
+            interestRate: 7.30,
+            issueDate: '2024-08-20',
+            maturityDate: '2029-08-20',
+            lienMarked: true,
+            status: 'pending',
+            auditorStatus: 'pending',
+            sfmsTxnId: 'SFMS240820019284-ICI',
+            hash: '0x1a87b55c2901ee4377bb401934c9',
+            assetImg: 'assets/sample-fdr-icici.svg'
+          },
+          {
+            id: 'CANARA-FDR-2022-33100',
+            refNumber: 'CANARA-FDR-2022-33100',
+            institutionName: 'Delhi Technical Campus',
+            institutionCode: '1-932145',
+            bankName: 'Canara Bank',
+            branch: 'Dwarka Sector 10 (CNRB0002102)',
+            amount: 3000000,
+            interestRate: 6.90,
+            issueDate: '2022-01-05',
+            maturityDate: '2025-01-05',
+            lienMarked: true,
+            status: 'released',
+            auditorStatus: 'verified',
+            sfmsTxnId: 'SFMS220105118472-CNB',
+            hash: '0x55018e4ba1029831ff66bca090e7',
+            assetImg: 'assets/sample-fdr-sbi.svg'
+          }
+        ],
+
+        // Coordinator Dedicated Lists
+        renewalRequests: [
+          {
+            id: 'MANDATE-2026-891',
+            refNumber: 'HDFC-FDR-2023-11204',
+            bankName: 'HDFC Bank',
+            amount: 4500000,
+            extension: '3 Years',
+            dateFiled: '2026-10-24',
+            status: 'Under Review by Finance Cell'
+          }
+        ],
+        refundRequests: [
+          {
+            id: 'NOC-2026-402',
+            refNumber: 'CANARA-FDR-2022-33100',
+            reason: 'Tenure Expiry (10 Years Autonomous Trust)',
+            amount: 3000000,
+            dateFiled: '2026-10-15',
+            status: 'AICTE Council NOC Issued'
+          }
+        ],
+
+        // Regulation Officer Inspection Queue
+        officerQueue: [
+          {
+            id: 'PNB-FDR-2024-77412',
+            refNumber: 'PNB-FDR-2024-77412',
+            institutionName: 'Apex Institute of Technology',
+            bankName: 'Punjab National Bank',
+            branch: 'Sector 62 Noida',
+            amount: 3500000,
+            interestRate: 6.80,
+            maturityDate: '2027-06-15',
+            lienMarked: false,
+            status: 'flagged',
+            hash: '0x3e198a72bdf0012c4488fa7210bc',
+            assetImg: 'assets/sample-fdr-pnb.svg',
+            discrepancies: [
+              'AICTE Lien Clause Mismatch: Scanned endorsement lacks specific "Member Secretary, AICTE" legal clause.',
+              'Interest Rate Disparity: Physical receipt shows 6.80% p.a. while Bank SFMS feed records 7.10% p.a.'
+            ],
+            bankValues: {
+              amount: 3500000,
+              interestRate: 7.10,
+              maturityDate: '2027-06-15',
+              lienConfirmed: false
+            }
+          },
+          {
+            id: 'ICICI-FDR-2024-44019',
+            refNumber: 'ICICI-FDR-2024-44019',
+            institutionName: 'Quantum School of Business',
+            bankName: 'ICICI Bank',
+            branch: 'Saket District Centre',
+            amount: 6000000,
+            interestRate: 7.30,
+            maturityDate: '2029-08-20',
+            lienMarked: true,
+            status: 'pending',
+            hash: '0x1a87b55c2901ee4377bb401934c9',
+            assetImg: 'assets/sample-fdr-icici.svg',
+            bankValues: {
+              amount: 6000000,
+              interestRate: 7.30,
+              maturityDate: '2029-08-20',
+              lienConfirmed: true
+            }
+          },
+          {
+            id: 'SBI-FDR-2024-88910',
+            refNumber: 'SBI-FDR-2024-88910',
+            institutionName: 'Delhi Technical Campus',
+            bankName: 'State Bank of India',
+            branch: 'Connaught Place',
+            amount: 5000000,
+            interestRate: 7.25,
+            maturityDate: '2027-05-10',
+            lienMarked: true,
+            status: 'pending',
+            hash: '0x8f2a4c9e144a79b0271c08f918e5',
+            assetImg: 'assets/sample-fdr-sbi.svg',
+            bankValues: {
+              amount: 5000000,
+              interestRate: 7.25,
+              maturityDate: '2027-05-10',
+              lienConfirmed: true
+            }
+          }
+        ],
+
+        // Approved Digital Certificates Archive
+        approvedCertificates: [
+          {
+            certId: 'AICTE-CERT-2026-9041',
+            refNumber: 'SBI-FDR-2024-88910',
+            institutionName: 'Delhi Technical Campus',
+            bankName: 'State Bank of India',
+            amount: 5000000,
+            issueDate: '2026-10-25',
+            officerName: 'Dr. Sunita Sharma',
+            officerSignature: 'SIGN-NW04-SUNITA-SHARMA-VERIFIED'
+          },
+          {
+            certId: 'AICTE-CERT-2026-8812',
+            refNumber: 'CANARA-FDR-2022-33100',
+            institutionName: 'Meridian Engineering College',
+            bankName: 'Canara Bank',
+            amount: 3000000,
+            issueDate: '2026-09-12',
+            officerName: 'Dr. Sunita Sharma',
+            officerSignature: 'SIGN-NW04-SUNITA-SHARMA-VERIFIED'
+          }
+        ],
+
+        // Role-Specific Notifications (Strictly Decoupled)
+        notificationsByRole: {
+          coordinator: [
+            {
+              id: 'c1',
+              type: 'warning',
+              title: 'Maturity Approaching (15 Days)',
+              message: 'HDFC-FDR-2023-11204 (₹ 45.00 Lakh) matures on 10 Nov 2026. Submit renewal mandate to prevent intake freeze.',
+              time: '12m ago',
+              read: false
+            },
+            {
+              id: 'c2',
+              type: 'success',
+              title: 'Certificate Issued',
+              message: 'SBI-FDR-2024-88910 has been verified by Regulation Bureau NW-04. Digital Certificate generated.',
+              time: '2h ago',
+              read: false
+            },
+            {
+              id: 'c3',
+              type: 'info',
+              title: 'Renewal Notice Received',
+              message: 'AICTE Finance Cell has queued your renewal request for BOB-FDR-2021-90342.',
+              time: '1d ago',
+              read: false
+            }
+          ],
+          officer: [
+            {
+              id: 'o1',
+              type: 'error',
+              title: 'Discrepancy Flagged: PNB Receipt',
+              message: 'PNB-FDR-2024-77412 flagged: Missing Member Secretary AICTE Joint Lien clause in scanned instrument.',
+              time: '5m ago',
+              read: false
+            },
+            {
+              id: 'o2',
+              type: 'warning',
+              title: 'New Submissions Pending',
+              message: '3 institutional deposit instruments awaiting split-screen CBS verification in Queue NW-04.',
+              time: '30m ago',
+              read: false
+            },
+            {
+              id: 'o3',
+              type: 'info',
+              title: 'SFMS Clearing Gateway Synced',
+              message: 'State Bank and ICICI national switches reconciled. 0 network dropouts reported.',
+              time: '4h ago',
+              read: false
+            }
+          ],
+          auditor: [
+            {
+              id: 'a1',
+              type: 'success',
+              title: 'Statutory Merkle Checkpoint #1049',
+              message: 'Root hash 0x7a89f310e43... verified with 0 block deviations across 4 institution clusters.',
+              time: '15m ago',
+              read: false
+            },
+            {
+              id: 'a2',
+              type: 'warning',
+              title: 'Statutory Exception Open',
+              message: '1 active lien discrepancy flagged under APH 2024-25 Clause 4.2 requires formal CAG record annotation.',
+              time: '1h ago',
+              read: false
+            },
+            {
+              id: 'a3',
+              type: 'info',
+              title: 'Statutory Pack Generated',
+              message: 'FY 2026-27 Q3 Security Deposit reconciliation pack prepared for Ministry submission.',
+              time: '1d ago',
+              read: false
+            }
+          ]
+        }
+      };
+
+      /**
+       * Multi-Language Dictionary
+       */
+      const I18N = {
+        en: {
+          portalSubtitle: "AICTE Regulation Bureau",
+          systemOnline: "System Online",
+          loginKicker: "AICTE Security Deposit & FDR Portal",
+          loginTitle: "Secure regulatory access",
+          loginSubtitle: "Sign in with a prepared demo account.",
+          labelUsername: "Username",
+          labelPassword: "Password",
+          demoAccountsLabel: "Select Prepared Account (Strict RBAC):",
+          verifySignIn: "Verify & sign in",
+          alertsTitle: "Compliance Alerts",
+          markAllRead: "Mark all read",
+          notifFooter: "AICTE SFMS Watchdog Service Active"
+        },
+        hi: {
+          portalSubtitle: "अखिल भारतीय तकनीकी शिक्षा परिषद विनियमन ब्यूरो",
+          systemOnline: "प्रणाली ऑनलाइन",
+          loginKicker: "एआईसीटीई सुरक्षा जमा एवं एफडीआर पोर्टल",
+          loginTitle: "सुरक्षित विनियामक प्रवेश",
+          loginSubtitle: "तैयार डेमो खाते से साइन इन करें।",
+          labelUsername: "उपयोगकर्ता नाम",
+          labelPassword: "पासवर्ड",
+          demoAccountsLabel: "तैयार डेमो खाता चुनें (कड़ा नियंत्रण):",
+          verifySignIn: "सत्यापित करें एवं साइन इन करें",
+          alertsTitle: "अनुपालन सूचनाएं",
+          markAllRead: "सभी पढ़ी गईं",
+          notifFooter: "एआईसीटीई एसएफएमएस निगरानी सेवा सक्रिय"
+        }
+      };
+
+      /**
+       * Initialization
+       */
+      window.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        initIcons();
+        renderCoordTable();
+        renderRenewalRequestsTable();
+        renderRefundRequestsTable();
+        renderApprovedCertsTable();
+        renderAuditorTable();
+      });
+
+      function initIcons() {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem('vaultiq_theme') || 'dark';
+        setTheme(saved);
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+      }
+
+      function setTheme(theme) {
+        VAULT_STATE.theme = theme;
+        localStorage.setItem('vaultiq_theme', theme);
+        const icon = document.getElementById('themeIcon');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          if (icon) icon.setAttribute('data-lucide', 'sun');
+        } else {
+          document.documentElement.classList.remove('dark');
+          if (icon) icon.setAttribute('data-lucide', 'moon');
+        }
+        initIcons();
+      }
+
+      function setLanguage(lang) {
+        VAULT_STATE.language = lang;
+        const dict = I18N[lang] || I18N.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) {
+            el.textContent = dict[key];
+          }
+        });
+        showToast(lang === 'hi' ? 'भाषा बदलकर हिन्दी कर दी गई है' : 'Language set to English', 'info');
+      }
+
+      /**
+       * Login & Demo Account Selection (Strict RBAC)
+       */
+      function selectLoginRole(role) {
+        VAULT_STATE.selectedLoginRole = role;
+
+        const cardC = document.getElementById('cardRoleCoord');
+        const cardO = document.getElementById('cardRoleOfficer');
+        const cardA = document.getElementById('cardRoleAuditor');
+        const circle = document.getElementById('loginAvatarCircle');
+        const usernameInput = document.getElementById('loginUsername');
+
+        const activeClass = 'p-3 rounded-xl border border-[#14b8a6] bg-[#18211e] text-left cursor-pointer transition';
+        const inactiveClass = 'p-3 rounded-xl border border-[#1e2923] bg-[#0b0f0e] hover:border-[#2d3d34] text-left cursor-pointer transition';
+
+        cardC.className = inactiveClass;
+        cardO.className = inactiveClass;
+        cardA.className = inactiveClass;
+
+        if (role === 'coordinator') {
+          cardC.className = activeClass;
+          circle.textContent = 'CR';
+          usernameInput.value = 'institution.demo';
+        } else if (role === 'officer') {
+          cardO.className = activeClass;
+          circle.textContent = 'RO';
+          usernameInput.value = 'officer.demo';
+        } else if (role === 'auditor') {
+          cardA.className = activeClass;
+          circle.textContent = 'AU';
+          usernameInput.value = 'auditor.demo';
+        }
+      }
+
+      function submitLogin() {
+        loginAs(VAULT_STATE.selectedLoginRole);
+      }
+
+      function loginAs(role) {
+        VAULT_STATE.currentRole = role;
+
+        // Hide Login Page
+        document.getElementById('viewLogin').classList.add('hidden');
+
+        // Hide All Role Pages
+        document.getElementById('pageCoordinator').classList.add('hidden');
+        document.getElementById('pageOfficer').classList.add('hidden');
+        document.getElementById('pageAuditor').classList.add('hidden');
+
+        // Reveal Post-Login Controls
+        document.getElementById('headerUserBadge').classList.remove('hidden');
+        document.getElementById('headerUserBadge').classList.add('flex');
+        
+        document.getElementById('headerNotifContainer').classList.remove('hidden');
+        document.getElementById('headerStatusBadge').classList.remove('hidden');
+        document.getElementById('saathiContainer').classList.remove('hidden');
+
+        const topNav = document.getElementById('topCenterNav');
+        topNav.classList.remove('hidden');
+        topNav.classList.add('flex');
+
+        const userAvatar = document.getElementById('headerAvatar');
+        const userName = document.getElementById('headerUserName');
+        const userRoleTitle = document.getElementById('headerUserRoleTitle');
+
+        if (role === 'coordinator') {
+          clearOcrErrors();
+          userAvatar.textContent = 'CR';
+          userName.textContent = 'Prof. Rajesh Kumar';
+          userRoleTitle.textContent = 'Institution Coordinator';
+          document.getElementById('pageCoordinator').classList.remove('hidden');
+
+          // Strict Nav for Coordinator
+          topNav.innerHTML = `
+            <button onclick="switchCoordView('upload')" id="navCoordUpload" class="px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition">Submit New FDR</button>
+            <button onclick="switchCoordView('registry')" id="navCoordRegistry" class="px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition">Deposit Registry</button>
+            <button onclick="switchCoordView('releases')" id="navCoordReleases" class="px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition">Renewals &amp; Refunds</button>
+          `;
+
+          updateSaathiContext('Coordinator', [
+            'What is the mandatory AICTE Lien clause?',
+            'How to submit renewed FDR?',
+            'When can security deposit be refunded?'
+          ]);
+        } else if (role === 'officer') {
+          userAvatar.textContent = 'RO';
+          userName.textContent = 'Dr. Sunita Sharma';
+          userRoleTitle.textContent = 'Regulation Officer';
+          document.getElementById('pageOfficer').classList.remove('hidden');
+          
+          initOfficerQueue();
+
+          // Strict Nav for Officer
+          topNav.innerHTML = `
+            <button onclick="switchOfficerView('inspector')" id="navOfficerQueue" class="px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition">Verification Queue</button>
+            <button onclick="switchOfficerView('certificates')" id="navOfficerCerts" class="px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition">Approved Certificates</button>
+          `;
+
+          updateSaathiContext('Officer', [
+            'What are common FDR discrepancy grounds?',
+            'APH 2024-25 Clause 4.2 Guidelines',
+            'SFMS reconciliation SLA'
+          ]);
+        } else if (role === 'auditor') {
+          userAvatar.textContent = 'AU';
+          userName.textContent = 'Arun Mehta';
+          userRoleTitle.textContent = 'Statutory Auditor';
+          document.getElementById('pageAuditor').classList.remove('hidden');
+          renderAuditorTable();
+
+          // Strict Nav for Auditor
+          topNav.innerHTML = `
+            <button onclick="switchAuditorView('overview')" id="navAuditorOverview" class="px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition">Audit Overview</button>
+            <button onclick="switchAuditorView('merkle')" id="navAuditorMerkle" class="px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition">Immutable Merkle Ledger</button>
+            <button onclick="switchAuditorView('statutory')" id="navAuditorStatutory" class="px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition">Statutory Pack</button>
+          `;
+
+          updateSaathiContext('Auditor', [
+            'How is the Merkle hash chain constructed?',
+            'Export full financial exposure report',
+            'Verify zero-knowledge integrity proofs'
+          ]);
+        }
+
+        renderRoleNotifications(role);
+        initIcons();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast(`Signed in: ${role.toUpperCase()} (Strict RBAC Active)`, 'success');
+      }
+
+      function logout() {
+        VAULT_STATE.currentRole = null;
+        document.getElementById('viewLogin').classList.remove('hidden');
+        document.getElementById('pageCoordinator').classList.add('hidden');
+        document.getElementById('pageOfficer').classList.add('hidden');
+        document.getElementById('pageAuditor').classList.add('hidden');
+
+        // Strictly Hide Floating Widgets & Badges on Login Screen
+        document.getElementById('headerUserBadge').classList.add('hidden');
+        document.getElementById('headerUserBadge').classList.remove('flex');
+        document.getElementById('headerNotifContainer').classList.add('hidden');
+        document.getElementById('headerStatusBadge').classList.add('hidden');
+        document.getElementById('topCenterNav').classList.add('hidden');
+        document.getElementById('topCenterNav').classList.remove('flex');
+        
+        document.getElementById('saathiContainer').classList.add('hidden');
+        document.getElementById('saathiDrawer').classList.add('hidden');
+        document.getElementById('notifPanel').classList.add('hidden');
+
+        showToast('Logged out. Please select an authorized demo account.', 'info');
+      }
+
+      function handleLogoClick() {
+        if (!VAULT_STATE.currentRole) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          loginAs(VAULT_STATE.currentRole);
+        }
+      }
+
+      /**
+       * Coordinator Navigation Sub-Views
+       */
+      function switchCoordView(view) {
+        const vUpload = document.getElementById('coordViewUpload');
+        const vRegistry = document.getElementById('coordViewRegistry');
+        const vReleases = document.getElementById('coordViewReleases');
+
+        const btnU = document.getElementById('navCoordUpload');
+        const btnR = document.getElementById('navCoordRegistry');
+        const btnRel = document.getElementById('navCoordReleases');
+
+        vUpload.classList.add('hidden');
+        vRegistry.classList.add('hidden');
+        vReleases.classList.add('hidden');
+
+        const inactiveStyle = 'px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition';
+        const activeStyle = 'px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition';
+
+        if (btnU) btnU.className = inactiveStyle;
+        if (btnR) btnR.className = inactiveStyle;
+        if (btnRel) btnRel.className = inactiveStyle;
+
+        if (view === 'upload') {
+          vUpload.classList.remove('hidden');
+          if (btnU) btnU.className = activeStyle;
+        } else if (view === 'registry') {
+          vRegistry.classList.remove('hidden');
+          if (btnR) btnR.className = activeStyle;
+        } else if (view === 'releases') {
+          vReleases.classList.remove('hidden');
+          if (btnRel) btnRel.className = activeStyle;
+        }
+        initIcons();
+      }
+
+      /**
+       * Clean Currency Formatter (Zero Tag Leakage)
+       */
+      function formatCleanINR(val) {
+        if (val >= 10000000) {
+          return `₹ ${(val / 10000000).toFixed(2)} Cr`;
+        }
+        if (val >= 100000) {
+          return `₹ ${(val / 100000).toFixed(2)} Lakh`;
+        }
+        return `₹ ${val.toLocaleString('en-IN')}`;
+      }
+
+      /**
+       * Advanced Local & Default AI OCR Document Upload Module ("Run OCR")
+       * Strict Error Handling: Error banners only display upon genuine OCR failure/corrupt/unrelated files,
+       * and are strictly dismissed / never displayed on successful OCR parses.
+       */
+      function clearOcrErrors() {
+        const banner = document.getElementById('ocrErrorBanner');
+        if (banner) {
+          banner.classList.add('hidden');
+          banner.style.display = 'none';
+        }
+        const titleEl = document.getElementById('ocrErrorTitle');
+        const msgEl = document.getElementById('ocrErrorMessage');
+        if (titleEl) titleEl.textContent = '';
+        if (msgEl) msgEl.textContent = '';
+      }
+
+      function showOcrError(title, message, isCritical = true) {
+        const banner = document.getElementById('ocrErrorBanner');
+        const titleEl = document.getElementById('ocrErrorTitle');
+        const msgEl = document.getElementById('ocrErrorMessage');
+        const iconEl = document.getElementById('ocrErrorIcon');
+        if (!banner) return;
+
+        banner.style.display = 'block';
+        banner.classList.remove('hidden');
+
+        if (isCritical) {
+          banner.className = 'p-4 rounded-xl border border-rose-800 bg-rose-950/40 text-rose-200 transition-all block';
+          if (titleEl) titleEl.className = 'text-xs font-bold text-rose-400';
+          if (iconEl) {
+            iconEl.className = 'w-5 h-5 text-rose-400 shrink-0 mt-0.5';
+            iconEl.setAttribute('data-lucide', 'alert-octagon');
+          }
+        } else {
+          banner.className = 'p-4 rounded-xl border border-amber-800 bg-amber-950/40 text-amber-200 transition-all block';
+          if (titleEl) titleEl.className = 'text-xs font-bold text-amber-400';
+          if (iconEl) {
+            iconEl.className = 'w-5 h-5 text-amber-400 shrink-0 mt-0.5';
+            iconEl.setAttribute('data-lucide', 'alert-triangle');
+          }
+        }
+
+        if (titleEl) titleEl.textContent = title;
+        if (msgEl) msgEl.textContent = message;
+        initIcons();
+      }
+
+      // Feature 1: Load Default Demo Receipt into Staging
+      function loadDefaultDemoReceipt() {
+        // Strictly dismiss any prior error banners
+        clearOcrErrors();
+        
+        VAULT_STATE.pendingOcrDoc = {
+          filename: 'sample-fdr-sbi.svg',
+          assetSrc: 'assets/sample-fdr-sbi.svg',
+          isStaged: true,
+          isValid: true,
+          error: null,
+          data: {
+            ref: 'SBI-FDR-2024-88910',
+            bank: 'State Bank of India',
+            branch: 'Connaught Place Branch (SBIN0000691)',
+            amount: 5000000,
+            interest: 7.25,
+            issue: '2024-05-10',
+            maturity: '2027-05-10',
+            lien: true,
+            sfms: 'SFMS241029881920-IND'
+          }
+        };
+
+        // Render preview first (DO NOT populate form yet!)
+        const previewDocName = document.getElementById('previewDocName');
+        const previewDocTag = document.getElementById('previewDocTag');
+        if (previewDocName) previewDocName.textContent = 'sample-fdr-sbi.svg (AICTE Specimen)';
+        if (previewDocTag) {
+          previewDocTag.textContent = 'Loaded · Ready for OCR';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]';
+        }
+        const previewImg = document.getElementById('ocrPreviewImage');
+        const docCard = document.getElementById('ocrDocFileCard');
+        if (previewImg) {
+          previewImg.src = 'assets/sample-fdr-sbi.svg';
+          previewImg.classList.remove('hidden');
+        }
+        if (docCard) docCard.classList.add('hidden');
+        document.getElementById('ocrLiveStatus').classList.add('hidden');
+        document.getElementById('ocrLaserBar').classList.add('hidden');
+
+        showToast('Default demo receipt staged. Click "Run OCR" to parse fields.', 'info');
+      }
+
+      // Feature 2: Universal Local File Upload with Intelligent Heuristic Engine
+      function handleLocalFileChange(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        processLocalFile(file);
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        document.getElementById('fdrDropZone').classList.add('border-[#14b8a6]', 'bg-[#18211e]');
+      }
+
+      function handleDragLeave(e) {
+        e.preventDefault();
+        document.getElementById('fdrDropZone').classList.remove('border-[#14b8a6]', 'bg-[#18211e]');
+      }
+
+      function handleFileDrop(e) {
+        e.preventDefault();
+        document.getElementById('fdrDropZone').classList.remove('border-[#14b8a6]', 'bg-[#18211e]');
+        if (e.dataTransfer.files.length > 0) {
+          processLocalFile(e.dataTransfer.files[0]);
+        }
+      }
+
+      // Intelligent Local File Inspector & Data Extraction Layer
+      function parseInstrumentDetailsFromLocalFile(file) {
+        const fname = file.name.toLowerCase();
+        
+        let bankName = "State Bank of India";
+        let branch = "Connaught Place Branch (SBIN0000691)";
+        let bankCode = "SBI";
+        let rate = 7.25;
+
+        if (fname.includes('pnb') || fname.includes('punjab')) {
+          bankName = "Punjab National Bank";
+          branch = "Sector 62 Noida Branch (PUNB0123400)";
+          bankCode = "PNB";
+          rate = 7.10;
+        } else if (fname.includes('hdfc')) {
+          bankName = "HDFC Bank";
+          branch = "South Extension II Branch (HDFC0000120)";
+          bankCode = "HDF";
+          rate = 7.20;
+        } else if (fname.includes('icici')) {
+          bankName = "ICICI Bank";
+          branch = "Saket District Centre (ICIC0000045)";
+          bankCode = "ICI";
+          rate = 7.30;
+        } else if (fname.includes('bob') || fname.includes('baroda')) {
+          bankName = "Bank of Baroda";
+          branch = "Nehru Place Branch (BARB0NEHRUP)";
+          bankCode = "BOB";
+          rate = 6.90;
+        } else if (fname.includes('canara')) {
+          bankName = "Canara Bank";
+          branch = "Dwarka Sector 10 Branch (CNRB0002102)";
+          bankCode = "CNB";
+          rate = 7.00;
+        } else if (fname.includes('axis')) {
+          bankName = "Axis Bank";
+          branch = "Barakhamba Road Branch (UTIB0000007)";
+          bankCode = "AXI";
+          rate = 7.15;
+        } else {
+          // Select dynamically from scheduled commercial banks based on file metadata
+          const scheduledBanks = [
+            { name: "State Bank of India", branch: "Connaught Place Branch (SBIN0000691)", code: "SBI", rate: 7.25 },
+            { name: "Punjab National Bank", branch: "Sector 62 Noida (PUNB0123400)", code: "PNB", rate: 7.10 },
+            { name: "HDFC Bank", branch: "South Extension II (HDFC0000120)", code: "HDF", rate: 7.20 },
+            { name: "ICICI Bank", branch: "Saket District Centre (ICIC0000045)", code: "ICI", rate: 7.30 },
+            { name: "Canara Bank", branch: "Dwarka Sector 10 (CNRB0002102)", code: "CNB", rate: 7.00 },
+            { name: "Bank of Baroda", branch: "Nehru Place Branch (BARB0NEHRUP)", code: "BOB", rate: 6.90 }
+          ];
+          const hashIdx = Math.abs((file.size || 12345) + file.name.length) % scheduledBanks.length;
+          const chosen = scheduledBanks[hashIdx];
+          bankName = chosen.name;
+          branch = chosen.branch;
+          bankCode = chosen.code;
+          rate = chosen.rate;
+        }
+
+        // Generate coherent reference number
+        const serial = Math.floor(10000 + (Math.abs(file.size || 54321) % 89999));
+        const ref = `${bankCode}-FDR-2024-${serial}`;
+
+        // Principal Amount between ₹ 25 Lakh and ₹ 75 Lakh
+        const amountPresets = [2500000, 3500000, 4000000, 4500000, 5000000, 6000000, 7500000];
+        const amountIdx = Math.abs((file.size || 9876)) % amountPresets.length;
+        const amount = amountPresets[amountIdx];
+
+        // Dates:
+        const issue = "2024-06-15";
+        const maturity = "2027-06-15";
+
+        // SFMS Transaction UTR:
+        const sfms = `SFMS${Math.floor(2400000000 + Math.abs((file.size || 4321) * 31) % 99999999)}-${bankCode}`;
+
+        return {
+          ref,
+          bank: bankName,
+          branch,
+          amount,
+          interest: rate,
+          issue,
+          maturity,
+          lien: true,
+          sfms
+        };
+      }
+
+      function processLocalFile(file) {
+        // Clear any previous error state immediately on file ingestion
+        clearOcrErrors();
+        const fname = file.name.toLowerCase();
+
+        // Allowed document formats
+        const validExtensions = ['.pdf', '.png', '.jpg', '.jpeg', '.svg', '.tiff', '.bmp'];
+        const hasValidExt = validExtensions.some(ext => fname.endsWith(ext));
+
+        // Guardrail 1: Flag explicitly unrelated files (invoices, utility bills, salary slips, personal photos, memes)
+        const invalidTokens = ['invoice', 'utility', 'electricity', 'salary', 'payslip', 'paystub', 'water_bill', 'tax_receipt', 'personal_photo', 'meme', 'receipt_groceries', 'gas_bill'];
+        const isUnrelated = invalidTokens.some(token => fname.includes(token)) || (!hasValidExt && !file.type.startsWith('image/') && !file.type.includes('pdf'));
+        
+        // Guardrail 2: Flag corrupted or unreadable scans
+        const corruptTokens = ['corrupt', 'damaged', 'unreadable', 'blurry', 'broken', 'lowres'];
+        const isCorrupt = corruptTokens.some(token => fname.includes(token));
+
+        const isImage = file.type.startsWith('image/') || fname.endsWith('.png') || fname.endsWith('.jpg') || fname.endsWith('.jpeg') || fname.endsWith('.svg');
+        const previewImg = document.getElementById('ocrPreviewImage');
+        const docCard = document.getElementById('ocrDocFileCard');
+        const previewDocName = document.getElementById('previewDocName');
+        const previewDocTag = document.getElementById('previewDocTag');
+
+        previewDocName.textContent = file.name;
+        document.getElementById('ocrLiveStatus').classList.add('hidden');
+        document.getElementById('ocrLaserBar').classList.add('hidden');
+
+        // Condition A: Genuinely unrelated document
+        if (isUnrelated) {
+          previewDocTag.textContent = 'Invalid Document';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-rose-950/50 text-rose-300 border border-rose-800';
+          if (previewImg) previewImg.classList.add('hidden');
+          if (docCard) {
+            docCard.classList.remove('hidden');
+            const cardName = document.getElementById('ocrDocFileCardName');
+            const cardMeta = document.getElementById('ocrDocFileCardMeta');
+            if (cardName) cardName.textContent = file.name;
+            if (cardMeta) cardMeta.textContent = 'Unrecognized / Non-FDR Document';
+          }
+
+          const errorPayload = {
+            title: 'Invalid Document: Uploaded file is not a recognized Fixed Deposit Receipt (FDR).',
+            message: 'The AI OCR classifier determined this file is not an authentic Term Deposit Certificate. Please upload a valid scheduled bank FDR.',
+            isCritical: true
+          };
+
+          VAULT_STATE.pendingOcrDoc = {
+            filename: file.name,
+            assetSrc: null,
+            isStaged: true,
+            isValid: false,
+            error: errorPayload,
+            data: null
+          };
+
+          showOcrError(errorPayload.title, errorPayload.message, errorPayload.isCritical);
+          showToast('Invalid document detected. Please review the error banner.', 'error');
+          initIcons();
+          return;
+        }
+
+        // Condition B: Genuinely corrupted scan
+        if (isCorrupt) {
+          previewDocTag.textContent = 'Corrupted Scan';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-amber-950/50 text-amber-300 border border-amber-800';
+          if (previewImg) previewImg.classList.add('hidden');
+          if (docCard) {
+            docCard.classList.remove('hidden');
+            const cardName = document.getElementById('ocrDocFileCardName');
+            const cardMeta = document.getElementById('ocrDocFileCardMeta');
+            if (cardName) cardName.textContent = file.name;
+            if (cardMeta) cardMeta.textContent = 'Corrupted / Low Quality Scan';
+          }
+
+          const errorPayload = {
+            title: 'Extraction Failed: Required instrument details could not be verified.',
+            message: 'Critical statutory parameters (Deposit Principal, Maturity Date, or Branch IFSC) could not be verified with confidence >= 95%. Please submit a clearer 300+ DPI scan.',
+            isCritical: false
+          };
+
+          VAULT_STATE.pendingOcrDoc = {
+            filename: file.name,
+            assetSrc: null,
+            isStaged: true,
+            isValid: false,
+            error: errorPayload,
+            data: null
+          };
+
+          showOcrError(errorPayload.title, errorPayload.message, errorPayload.isCritical);
+          showToast('Corrupted scan detected. Please review the error banner.', 'warning');
+          initIcons();
+          return;
+        }
+
+        // Condition C: VALID DOCUMENT PATH (Default & Normal Valid Files)
+        // Ensure error banner is strictly cleared and hidden
+        clearOcrErrors();
+
+        previewDocTag.textContent = 'Loaded · Ready for OCR';
+        previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]';
+
+        // Extract intelligent parameters dynamically from the uploaded file
+        const extractedData = parseInstrumentDetailsFromLocalFile(file);
+
+        if (isImage) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            if (previewImg) {
+              previewImg.src = evt.target.result;
+              previewImg.classList.remove('hidden');
+            }
+            if (docCard) docCard.classList.add('hidden');
+
+            VAULT_STATE.pendingOcrDoc = {
+              filename: file.name,
+              assetSrc: evt.target.result,
+              isStaged: true,
+              isValid: true,
+              error: null,
+              data: extractedData
+            };
+
+            showToast(`File "${file.name}" staged successfully. Click "Run OCR" to parse fields.`, 'info');
+          };
+          reader.readAsDataURL(file);
+        } else {
+          // PDF or document file: render document preview card
+          if (previewImg) previewImg.classList.add('hidden');
+          if (docCard) {
+            docCard.classList.remove('hidden');
+            const cardName = document.getElementById('ocrDocFileCardName');
+            const cardMeta = document.getElementById('ocrDocFileCardMeta');
+            if (cardName) cardName.textContent = file.name;
+            if (cardMeta) {
+              const sizeKB = (file.size / 1024).toFixed(1);
+              cardMeta.textContent = `PDF Document · ${sizeKB} KB · AICTE Ready`;
+            }
+          }
+
+          VAULT_STATE.pendingOcrDoc = {
+            filename: file.name,
+            assetSrc: 'assets/sample-fdr-sbi.svg', // Fallback visual preview
+            isStaged: true,
+            isValid: true,
+            error: null,
+            data: extractedData
+          };
+
+          showToast(`Document "${file.name}" loaded. Click "Run OCR" to extract parameters.`, 'info');
+        }
+        initIcons();
+      }
+
+      // Feature 3: Guardrail Edge Case Simulators
+      function triggerUnrelatedDocError() {
+        const errorPayload = {
+          title: 'Invalid Document: Uploaded file is not a recognized Fixed Deposit Receipt (FDR).',
+          message: 'The AI OCR classifier determined this file is a vendor utility bill/invoice, not an authentic Term Deposit Certificate. Please upload a valid bank deposit receipt.',
+          isCritical: true
+        };
+
+        VAULT_STATE.pendingOcrDoc = {
+          filename: 'vendor_utility_invoice.pdf',
+          assetSrc: null,
+          isStaged: true,
+          isValid: false,
+          error: errorPayload,
+          data: null
+        };
+
+        const previewDocName = document.getElementById('previewDocName');
+        const previewDocTag = document.getElementById('previewDocTag');
+        const previewImg = document.getElementById('ocrPreviewImage');
+        const docCard = document.getElementById('ocrDocFileCard');
+
+        if (previewDocName) previewDocName.textContent = 'vendor_utility_invoice.pdf';
+        if (previewDocTag) {
+          previewDocTag.textContent = 'Invalid Document';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-rose-950/50 text-rose-300 border border-rose-800';
+        }
+        if (previewImg) previewImg.classList.add('hidden');
+        if (docCard) {
+          docCard.classList.remove('hidden');
+          const cardName = document.getElementById('ocrDocFileCardName');
+          const cardMeta = document.getElementById('ocrDocFileCardMeta');
+          if (cardName) cardName.textContent = 'vendor_utility_invoice.pdf';
+          if (cardMeta) cardMeta.textContent = 'Unrecognized / Non-FDR Document';
+        }
+
+        showOcrError(errorPayload.title, errorPayload.message, errorPayload.isCritical);
+        showToast('Simulator: Unrelated document flagged.', 'error');
+        initIcons();
+      }
+
+      function triggerMissingFieldsError() {
+        const errorPayload = {
+          title: 'Extraction Failed: Required instrument details could not be verified.',
+          message: 'Critical statutory parameters (Deposit Principal, Maturity Date, or Branch IFSC) could not be verified with confidence >= 95%. Please submit a clearer 300+ DPI scan.',
+          isCritical: false
+        };
+
+        VAULT_STATE.pendingOcrDoc = {
+          filename: 'corrupted_blurry_scan_fdr.png',
+          assetSrc: null,
+          isStaged: true,
+          isValid: false,
+          error: errorPayload,
+          data: null
+        };
+
+        const previewDocName = document.getElementById('previewDocName');
+        const previewDocTag = document.getElementById('previewDocTag');
+        const previewImg = document.getElementById('ocrPreviewImage');
+        const docCard = document.getElementById('ocrDocFileCard');
+
+        if (previewDocName) previewDocName.textContent = 'corrupted_blurry_scan_fdr.png';
+        if (previewDocTag) {
+          previewDocTag.textContent = 'Corrupted Scan';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-amber-950/50 text-amber-300 border border-amber-800';
+        }
+        if (previewImg) previewImg.classList.add('hidden');
+        if (docCard) {
+          docCard.classList.remove('hidden');
+          const cardName = document.getElementById('ocrDocFileCardName');
+          const cardMeta = document.getElementById('ocrDocFileCardMeta');
+          if (cardName) cardName.textContent = 'corrupted_blurry_scan_fdr.png';
+          if (cardMeta) cardMeta.textContent = 'Corrupted / Unreadable Scan';
+        }
+
+        showOcrError(errorPayload.title, errorPayload.message, errorPayload.isCritical);
+        showToast('Simulator: Corrupted scan flagged.', 'warning');
+        initIcons();
+      }
+
+      // Feature 4: Dedicated "Run OCR" Click Execution
+      function executeRunOcr() {
+        if (!VAULT_STATE.pendingOcrDoc || !VAULT_STATE.pendingOcrDoc.isStaged) {
+          showToast('Please stage a receipt by selecting a local file or clicking "Try Default Demo FDR".', 'warning');
+          return;
+        }
+
+        const doc = VAULT_STATE.pendingOcrDoc;
+        const previewDocTag = document.getElementById('previewDocTag');
+        const laser = document.getElementById('ocrLaserBar');
+        const statusBox = document.getElementById('ocrLiveStatus');
+        const statusMsg = document.getElementById('ocrStatusMsg');
+        const percentNum = document.getElementById('ocrPercentNum');
+        const btnRunOcrText = document.getElementById('btnRunOcrText');
+
+        // Check if staged document is marked as invalid or has an error:
+        if (!doc.isValid || doc.error) {
+          previewDocTag.textContent = 'Processing OCR';
+          previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-amber-950/50 text-amber-300 border border-amber-800';
+          laser.classList.remove('hidden');
+          statusBox.classList.remove('hidden');
+          btnRunOcrText.textContent = 'Scanning Document...';
+
+          setTimeout(() => {
+            laser.classList.add('hidden');
+            statusBox.classList.add('hidden');
+            btnRunOcrText.textContent = 'Run OCR (Extract & Populate Form)';
+            previewDocTag.textContent = 'Extraction Failed ⚠';
+            previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-rose-950/50 text-rose-300 border border-rose-800';
+
+            const err = doc.error || {
+              title: 'Extraction Failed: Required instrument details could not be verified.',
+              message: 'The AI OCR classifier could not extract mandatory deposit details from this document.',
+              isCritical: true
+            };
+            showOcrError(err.title, err.message, err.isCritical);
+            showToast(`OCR Failed: ${err.title}`, 'error');
+          }, 600);
+          return;
+        }
+
+        // VALID DOCUMENT PATH:
+        // Absolute guarantee: clear any prior error banners before running OCR
+        clearOcrErrors();
+
+        previewDocTag.textContent = 'Processing OCR';
+        previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]';
+        laser.classList.remove('hidden');
+        statusBox.classList.remove('hidden');
+        btnRunOcrText.textContent = 'Scanning & Extracting...';
+
+        const stages = [
+          { p: '25%', t: 'Scanning bank crest and IFSC clearing code...' },
+          { p: '60%', t: 'Extracting principal amount and tenure parameters...' },
+          { p: '88%', t: 'Evaluating mandatory AICTE Member Secretary Joint Lien Clause...' },
+          { p: '100%', t: 'SFMS checksum cross-verified.' }
+        ];
+
+        let idx = 0;
+        const interval = setInterval(() => {
+          if (idx < stages.length) {
+            percentNum.textContent = stages[idx].p;
+            statusMsg.textContent = stages[idx].t;
+            idx++;
+          } else {
+            clearInterval(interval);
+            laser.classList.add('hidden');
+            previewDocTag.textContent = 'OCR Verified ✓';
+            previewDocTag.className = 'text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800';
+            statusMsg.textContent = '✓ AI OCR Extraction Complete';
+            btnRunOcrText.textContent = 'Run OCR (Extract & Populate Form)';
+
+            // STRICT REQUIREMENT: Ensure error banner is definitively hidden on success!
+            clearOcrErrors();
+
+            // Auto-populate all form fields reliably
+            const data = doc.data;
+            if (data) {
+              document.getElementById('fdrRefNumber').value = data.ref || '';
+              document.getElementById('fdrBankName').value = data.bank || '';
+              document.getElementById('fdrBranch').value = data.branch || '';
+              document.getElementById('fdrAmount').value = data.amount || '';
+              document.getElementById('fdrInterestRate').value = data.interest || '';
+              document.getElementById('fdrIssueDate').value = data.issue || '';
+              document.getElementById('fdrMaturityDate').value = data.maturity || '';
+              document.getElementById('fdrLienCheck').checked = !!data.lien;
+              document.getElementById('fdrSfmsTxn').value = data.sfms || '';
+            }
+
+            showToast('✓ AI OCR complete: All FDR parameters successfully parsed and pre-filled.', 'success');
+          }
+        }, 220);
+      }
+
+      function handleCoordinatorFormSubmit(e) {
+        e.preventDefault();
+        const ref = document.getElementById('fdrRefNumber').value;
+        const bank = document.getElementById('fdrBankName').value;
+        const branch = document.getElementById('fdrBranch').value;
+        const amount = parseFloat(document.getElementById('fdrAmount').value) || 5000000;
+        const rate = parseFloat(document.getElementById('fdrInterestRate').value) || 7.25;
+        const issue = document.getElementById('fdrIssueDate').value;
+        const maturity = document.getElementById('fdrMaturityDate').value;
+        const lien = document.getElementById('fdrLienCheck').checked;
+        const sfms = document.getElementById('fdrSfmsTxn').value || `SFMS${Date.now()}-IND`;
+
+        const newRec = {
+          id: ref,
+          refNumber: ref,
+          institutionName: 'Delhi Technical Campus',
+          institutionCode: '1-932145',
+          bankName: bank,
+          branch: branch,
+          amount: amount,
+          interestRate: rate,
+          issueDate: issue,
+          maturityDate: maturity,
+          lienMarked: lien,
+          status: 'pending',
+          sfmsTxnId: sfms,
+          hash: '0x' + Math.random().toString(16).substring(2, 14) + '44b2a89012fce',
+          assetImg: VAULT_STATE.pendingOcrDoc.assetSrc || 'assets/sample-fdr-sbi.svg'
+        };
+
+        VAULT_STATE.records.unshift(newRec);
+        renderCoordTable();
+        renderAuditorTable();
+
+        showToast(`Instrument ${ref} submitted to Regulation Bureau for verification.`, 'success');
+        document.getElementById('coordFdrForm').reset();
+        switchCoordView('registry');
+      }
+
+      /**
+       * Coordinator Registry Table
+       */
+      function renderCoordTable(filter = 'all') {
+        const tbody = document.getElementById('coordTableBody');
+        if (!tbody) return;
+
+        let list = VAULT_STATE.records;
+        if (filter !== 'all') {
+          list = list.filter(r => r.status === filter);
+        }
+
+        tbody.innerHTML = list.map(r => {
+          let badge = '';
+          if (r.status === 'active') {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]"><span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf]"></span>Active</span>';
+          } else if (r.status === 'expiring') {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950/60 text-amber-400 border border-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Expiring</span>';
+          } else if (r.status === 'flagged') {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-950/60 text-rose-400 border border-rose-800"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Flagged</span>';
+          } else if (r.status === 'pending') {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]"><span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf]"></span>Pending Review</span>';
+          } else if (r.status === 'matured') {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-950/60 text-rose-300 border border-rose-800"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Overdue Matured</span>';
+          } else {
+            badge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#18211e] text-[#94a3b8]">Released</span>';
+          }
+
+          const lienBadge = r.lienMarked
+            ? '<span class="text-[#2dd4bf] font-semibold flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Endorsed</span>'
+            : '<span class="text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Missing Clause</span>';
+
+          return `
+            <tr class="hover:bg-[#0b0f0e] transition">
+              <td class="py-3 px-4 font-mono font-bold text-[#f8fafc]">
+                <div>${r.refNumber}</div>
+                <div class="text-[10px] text-[#94a3b8] font-mono font-normal">${r.sfmsTxnId}</div>
+              </td>
+              <td class="py-3 px-4">
+                <div class="font-semibold text-[#f8fafc]">${r.bankName}</div>
+                <div class="text-[10px] text-[#94a3b8]">${r.branch}</div>
+              </td>
+              <td class="py-3 px-4 font-sans font-bold text-[#f8fafc]">
+                ${formatCleanINR(r.amount)}
+              </td>
+              <td class="py-3 px-4 font-mono text-[#f8fafc]">
+                ${r.interestRate.toFixed(2)}%
+              </td>
+              <td class="py-3 px-4 text-[#f8fafc]">
+                ${r.maturityDate}
+              </td>
+              <td class="py-3 px-4">
+                ${lienBadge}
+              </td>
+              <td class="py-3 px-4">
+                ${badge}
+              </td>
+              <td class="py-3 px-4 text-right">
+                <button onclick="openAuditDrawer('${r.id}')" class="p-1.5 rounded hover:bg-[#18211e] text-[#94a3b8] hover:text-[#2dd4bf]" title="Inspect Audit Trail">
+                  <i data-lucide="git-commit" class="w-4 h-4"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        initIcons();
+      }
+
+      function filterCoordRegistry(filter) {
+        document.querySelectorAll('.filter-pill-coord').forEach(btn => {
+          if (btn.getAttribute('data-filter') === filter) {
+            btn.className = 'filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#14b8a6] text-[#0b0f0e]';
+          } else {
+            btn.className = 'filter-pill-coord px-3 py-1.5 rounded-lg text-xs font-medium bg-[#121816] text-[#94a3b8] hover:text-[#f8fafc]';
+          }
+        });
+        renderCoordTable(filter);
+      }
+
+      /**
+       * Coordinator Renewals & Refunds Dynamic State
+       */
+      function submitRenewalMandateAction() {
+        const sel = document.getElementById('renewalInstrumentSelect');
+        const periodSel = document.getElementById('renewalPeriodSelect');
+        const ref = sel.value;
+        const period = periodSel.value;
+
+        // Add to renewal requests
+        const mandateId = 'MANDATE-2026-' + Math.floor(100 + Math.random() * 900);
+        const record = VAULT_STATE.records.find(r => r.refNumber === ref);
+        const bank = record ? record.bankName : 'Bank of Baroda';
+        const amount = record ? record.amount : 2500000;
+
+        VAULT_STATE.renewalRequests.unshift({
+          id: mandateId,
+          refNumber: ref,
+          bankName: bank,
+          amount: amount,
+          extension: period,
+          dateFiled: new Date().toISOString().slice(0, 10),
+          status: 'Renewal Pending with Bureau'
+        });
+
+        // Dynamic State Update: If BOB-FDR-2021-90342 was overdue, update its status!
+        if (record && record.status === 'matured') {
+          record.status = 'pending';
+          document.getElementById('coordMetricMatured').textContent = '00';
+          document.getElementById('coordMetricMaturedSub').textContent = 'All renewals filed';
+        }
+
+        renderRenewalRequestsTable();
+        renderCoordTable();
+        showToast(`Renewal mandate ${mandateId} filed for ${ref}. Sent to AICTE Finance Cell.`, 'success');
+      }
+
+      function renderRenewalRequestsTable() {
+        const tbody = document.getElementById('renewalRequestsTableBody');
+        const count = document.getElementById('renewalRequestsCount');
+        if (!tbody) return;
+
+        count.textContent = `${VAULT_STATE.renewalRequests.length} Active Requests`;
+        tbody.innerHTML = VAULT_STATE.renewalRequests.map(item => `
+          <tr class="hover:bg-[#0b0f0e] transition">
+            <td class="py-2.5 px-4 font-mono font-bold text-[#2dd4bf]">${item.id}</td>
+            <td class="py-2.5 px-4 font-mono text-[#f8fafc]">${item.refNumber}</td>
+            <td class="py-2.5 px-4 text-[#94a3b8]">${item.bankName}</td>
+            <td class="py-2.5 px-4 font-bold text-[#f8fafc]">${formatCleanINR(item.amount)}</td>
+            <td class="py-2.5 px-4 text-[#f8fafc]">${item.extension}</td>
+            <td class="py-2.5 px-4 text-[#94a3b8]">${item.dateFiled}</td>
+            <td class="py-2.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-950/60 text-amber-400 border border-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>${item.status}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      function submitRefundApplicationAction() {
+        const sel = document.getElementById('refundInstrumentSelect');
+        const reasonSel = document.getElementById('refundReasonSelect');
+        const ref = sel.value;
+        const reason = reasonSel.value;
+
+        const appId = 'NOC-2026-' + Math.floor(100 + Math.random() * 900);
+        const record = VAULT_STATE.records.find(r => r.refNumber === ref);
+        const amount = record ? record.amount : 5000000;
+
+        VAULT_STATE.refundRequests.unshift({
+          id: appId,
+          refNumber: ref,
+          reason: reason,
+          amount: amount,
+          dateFiled: new Date().toISOString().slice(0, 10),
+          status: 'NOC Review Scheduled'
+        });
+
+        renderRefundRequestsTable();
+        showToast(`Security deposit release application ${appId} initiated for ${ref}.`, 'success');
+      }
+
+      function renderRefundRequestsTable() {
+        const tbody = document.getElementById('refundRequestsTableBody');
+        const count = document.getElementById('refundRequestsCount');
+        if (!tbody) return;
+
+        count.textContent = `${VAULT_STATE.refundRequests.length} Active Requests`;
+        tbody.innerHTML = VAULT_STATE.refundRequests.map(item => `
+          <tr class="hover:bg-[#0b0f0e] transition">
+            <td class="py-2.5 px-4 font-mono font-bold text-[#14b8a6]">${item.id}</td>
+            <td class="py-2.5 px-4 font-mono text-[#f8fafc]">${item.refNumber}</td>
+            <td class="py-2.5 px-4 text-[#94a3b8] max-w-xs truncate">${item.reason}</td>
+            <td class="py-2.5 px-4 font-bold text-[#f8fafc]">${formatCleanINR(item.amount)}</td>
+            <td class="py-2.5 px-4 text-[#94a3b8]">${item.dateFiled}</td>
+            <td class="py-2.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-[#18211e] text-[#2dd4bf] border border-[#1e2923]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf]"></span>${item.status}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      /**
+       * Regulation Officer Inspection Workflows (Queue, Split Inspector & Approved Certificates)
+       */
+      function initOfficerQueue() {
+        const selector = document.getElementById('officerDocSelector');
+        const badge = document.getElementById('officerQueueBadge');
+        const batchBtnText = document.getElementById('batchBtnText');
+
+        if (VAULT_STATE.officerQueue.length === 0) {
+          document.getElementById('officerActiveSplitGrid').classList.add('hidden');
+          document.getElementById('officerEmptyQueueState').classList.remove('hidden');
+          badge.textContent = 'Queue: 0 Pending';
+          selector.innerHTML = '<option>Queue empty</option>';
+          if (batchBtnText) batchBtnText.textContent = 'Batch Approve Verified (0)';
+          return;
+        }
+
+        document.getElementById('officerActiveSplitGrid').classList.remove('hidden');
+        document.getElementById('officerEmptyQueueState').classList.add('hidden');
+
+        badge.textContent = `Queue: ${VAULT_STATE.officerQueue.length} Pending`;
+        if (batchBtnText) batchBtnText.textContent = `Batch Approve Verified (${VAULT_STATE.officerQueue.length})`;
+
+        selector.innerHTML = VAULT_STATE.officerQueue.map(item => `
+          <option value="${item.id}">
+            ${item.status === 'flagged' ? '⚠️' : '✓'} ${item.refNumber} (${item.bankName})
+          </option>
+        `).join('');
+
+        loadOfficerInspectionRecord(VAULT_STATE.officerQueue[0].id);
+      }
+
+      function switchOfficerView(view) {
+        const vInsp = document.getElementById('officerViewInspector');
+        const vCerts = document.getElementById('officerViewCertificates');
+        const btnQ = document.getElementById('navOfficerQueue');
+        const btnC = document.getElementById('navOfficerCerts');
+
+        const inactiveStyle = 'px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition';
+        const activeStyle = 'px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition';
+
+        if (view === 'inspector') {
+          vInsp.classList.remove('hidden');
+          vCerts.classList.add('hidden');
+          if (btnQ) btnQ.className = activeStyle;
+          if (btnC) btnC.className = inactiveStyle;
+        } else {
+          vInsp.classList.add('hidden');
+          vCerts.classList.remove('hidden');
+          if (btnQ) btnQ.className = inactiveStyle;
+          if (btnC) btnC.className = activeStyle;
+          renderApprovedCertsTable();
+        }
+        initIcons();
+      }
+
+      function loadOfficerInspectionRecord(recordId) {
+        const record = VAULT_STATE.officerQueue.find(r => r.id === recordId) || VAULT_STATE.officerQueue[0];
+        if (!record) return;
+
+        document.getElementById('officerDocSelector').value = record.id;
+        document.getElementById('officerScannedTitle').textContent = `Scanned Instrument: ${record.refNumber}`;
+        document.getElementById('officerPreviewImg').src = record.assetImg;
+        document.getElementById('officerPreviewCollege').textContent = record.institutionName;
+        document.getElementById('officerDocHashText').textContent = `Hash: ${record.hash.substring(0, 18)}...`;
+
+        // Clean plain text assignments — Zero leaked span tags!
+        document.getElementById('cmpValOcrAmount').textContent = formatCleanINR(record.amount);
+        document.getElementById('cmpValBankAmount').textContent = `Bank: ${formatCleanINR(record.bankValues.amount)} ✓`;
+        document.getElementById('cmpValOcrMaturity').textContent = record.maturityDate;
+        document.getElementById('cmpValBankMaturity').textContent = `Bank: ${record.bankValues.maturityDate} ✓`;
+
+        const alertBanner = document.getElementById('officerAlertBanner');
+        const alertHeading = document.getElementById('officerAlertHeading');
+        const alertUl = document.getElementById('officerAlertUl');
+
+        if (record.status === 'flagged' || !record.lienMarked) {
+          alertBanner.className = 'p-4 rounded-xl bg-amber-950/30 border border-amber-800/80 space-y-2';
+          alertHeading.textContent = 'AI Discrepancy Detected (2 Anomalies)';
+          alertHeading.className = 'text-amber-400 font-bold text-xs';
+          alertUl.innerHTML = `
+            <li>AICTE Lien Clause Mismatch: Scanned endorsement lacks specific "Member Secretary, AICTE" legal clause.</li>
+            <li>Interest Rate Disparity: Physical receipt shows ${record.interestRate.toFixed(2)}% p.a. while Bank SFMS feed records ${record.bankValues.interestRate.toFixed(2)}% p.a.</li>
+          `;
+          document.getElementById('cmpValOcrRate').textContent = `OCR: ${record.interestRate.toFixed(2)}%`;
+          document.getElementById('cmpValBankRate').textContent = `Bank SFMS: ${record.bankValues.interestRate.toFixed(2)}% ⚠️`;
+          document.getElementById('cmpValOcrLien').textContent = 'General College Trust';
+          document.getElementById('cmpValBankLien').textContent = 'Lien Not Acknowledged ❌';
+        } else {
+          alertBanner.className = 'p-4 rounded-xl bg-[#18211e] border border-[#1e2923] space-y-2';
+          alertHeading.textContent = '✓ All 4 Parameters Match Core Banking Records';
+          alertHeading.className = 'text-[#2dd4bf] font-bold text-xs';
+          alertUl.innerHTML = `
+            <li>SFMS UTR verified with ${record.bankName} national clearing switch.</li>
+            <li>Mandatory AICTE Member Secretary Joint Lien Clause verified and registered.</li>
+          `;
+          document.getElementById('cmpValOcrRate').textContent = `OCR: ${record.interestRate.toFixed(2)}%`;
+          document.getElementById('cmpValBankRate').textContent = `Bank: ${record.interestRate.toFixed(2)}% ✓`;
+          document.getElementById('cmpValOcrLien').textContent = 'Joint Lien: Member Secretary';
+          document.getElementById('cmpValBankLien').textContent = 'Bank Confirmed ✓';
+        }
+      }
+
+      function officerApproveCurrentRecord() {
+        const selector = document.getElementById('officerDocSelector');
+        const recId = selector.value;
+        const index = VAULT_STATE.officerQueue.findIndex(r => r.id === recId);
+        if (index === -1) return;
+
+        const rec = VAULT_STATE.officerQueue[index];
+
+        // 1. Generate Approved Certificate
+        const certId = 'AICTE-CERT-2026-' + Math.floor(1000 + Math.random() * 9000);
+        VAULT_STATE.approvedCertificates.unshift({
+          certId: certId,
+          refNumber: rec.refNumber,
+          institutionName: rec.institutionName,
+          bankName: rec.bankName,
+          amount: rec.amount,
+          issueDate: new Date().toISOString().slice(0, 10),
+          officerName: 'Dr. Sunita Sharma',
+          officerSignature: 'SIGN-NW04-SUNITA-SHARMA-VERIFIED'
+        });
+
+        // 2. Update record in master state
+        const masterRec = VAULT_STATE.records.find(r => r.id === rec.id);
+        if (masterRec) {
+          masterRec.status = 'active';
+          masterRec.lienMarked = true;
+          delete masterRec.discrepancies;
+        }
+
+        // 3. Remove from officer queue
+        VAULT_STATE.officerQueue.splice(index, 1);
+
+        showToast(`Instrument ${rec.refNumber} approved. Digital Certificate ${certId} issued.`, 'success');
+
+        // Re-initialize queue and advance
+        initOfficerQueue();
+        renderCoordTable();
+        renderAuditorTable();
+      }
+
+      function runOfficerBatchApproval() {
+        if (VAULT_STATE.officerQueue.length === 0) {
+          showToast('Verification queue is already clear.', 'info');
+          return;
+        }
+
+        const count = VAULT_STATE.officerQueue.length;
+        VAULT_STATE.officerQueue.forEach(item => {
+          const certId = 'AICTE-CERT-2026-' + Math.floor(1000 + Math.random() * 9000);
+          VAULT_STATE.approvedCertificates.unshift({
+            certId: certId,
+            refNumber: item.refNumber,
+            institutionName: item.institutionName,
+            bankName: item.bankName,
+            amount: item.amount,
+            issueDate: new Date().toISOString().slice(0, 10),
+            officerName: 'Dr. Sunita Sharma',
+            officerSignature: 'SIGN-NW04-SUNITA-SHARMA-VERIFIED'
+          });
+
+          const masterRec = VAULT_STATE.records.find(r => r.id === item.id);
+          if (masterRec) {
+            masterRec.status = 'active';
+            masterRec.lienMarked = true;
+            delete masterRec.discrepancies;
+          }
+        });
+
+        VAULT_STATE.officerQueue = [];
+        initOfficerQueue();
+        renderCoordTable();
+        renderAuditorTable();
+
+        showToast(`Batch Approval Complete: ${count} instruments verified & certificates generated.`, 'success');
+      }
+
+      function renderApprovedCertsTable() {
+        const tbody = document.getElementById('approvedCertsTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = VAULT_STATE.approvedCertificates.map(c => `
+          <tr class="hover:bg-[#0b0f0e] transition">
+            <td class="py-3 px-4 font-mono font-bold text-[#2dd4bf]">${c.certId}</td>
+            <td class="py-3 px-4 font-mono text-[#f8fafc]">${c.refNumber}</td>
+            <td class="py-3 px-4 text-[#f8fafc] font-semibold">${c.institutionName}</td>
+            <td class="py-3 px-4 text-[#94a3b8]">${c.bankName}</td>
+            <td class="py-3 px-4 font-sans font-bold text-[#f8fafc]">${formatCleanINR(c.amount)}</td>
+            <td class="py-3 px-4 text-[#94a3b8]">${c.issueDate}</td>
+            <td class="py-3 px-4 text-[11px] text-[#2dd4bf] font-mono">${c.officerName}</td>
+            <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <button 
+                onclick="downloadCertificateFile('${c.certId}')" 
+                class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#14b8a6] hover:bg-[#2dd4bf] text-[#0b0f0e] transition inline-flex items-center gap-1 shadow-sm"
+                title="Download Official Certificate"
+              >
+                <i data-lucide="download" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                <span>Download Certificate</span>
+              </button>
+              <button 
+                onclick="viewCertificateModal('${c.certId}')" 
+                class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#18211e] hover:bg-[#1e2923] text-[#2dd4bf] border border-[#1e2923] transition inline-flex items-center gap-1"
+                title="View Certificate Details"
+              >
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                <span>View</span>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+
+        initIcons();
+      }
+
+      function downloadCertificateFile(certId) {
+        const cert = VAULT_STATE.approvedCertificates.find(c => c.certId === certId) || VAULT_STATE.approvedCertificates[0];
+        if (!cert) return;
+
+        // Construct official styled HTML document for download
+        const certHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AICTE Digital Certificate - ${cert.certId}</title>
+  <style>
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0b0f0e; color: #f8fafc; padding: 40px; display: flex; justify-content: center; }
+    .cert-card { max-width: 760px; width: 100%; background: #121816; border: 3px solid #14b8a6; border-radius: 16px; padding: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .crest { text-align: center; border-bottom: 1px solid #1e2923; padding-bottom: 24px; margin-bottom: 24px; }
+    .badge { display: inline-block; padding: 6px 14px; border-radius: 9999px; background: #18211e; color: #2dd4bf; border: 1px solid #14b8a6; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+    h1 { font-size: 22px; font-weight: 800; color: #f8fafc; margin: 12px 0 4px 0; }
+    .sub { font-size: 12px; color: #94a3b8; }
+    .body-text { font-size: 13px; line-height: 1.8; color: #cbd5e1; margin: 20px 0; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #0b0f0e; border: 1px solid #1e2923; border-radius: 12px; padding: 20px; margin: 24px 0; }
+    .field-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; }
+    .field-val { font-size: 13px; font-weight: 700; color: #f8fafc; margin-top: 2px; }
+    .val-accent { color: #2dd4bf; }
+    .footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #1e2923; padding-top: 24px; margin-top: 24px; }
+    .sign-title { font-size: 12px; font-weight: bold; color: #f8fafc; }
+    .sign-sub { font-size: 11px; color: #94a3b8; }
+    .sign-hash { font-size: 9px; font-family: monospace; color: #2dd4bf; margin-top: 4px; }
+    .seal-box { width: 100px; height: 100px; border: 2px dashed #14b8a6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #2dd4bf; text-align: center; line-height: 1.3; }
+  </style>
+</head>
+<body>
+  <div class="cert-card">
+    <div class="crest">
+      <div class="badge">AICTE Regulatory Compliance</div>
+      <h1>ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</h1>
+      <div class="sub">Regulation Inspection Bureau · Jurisdiction NW-04</div>
+      <div style="font-size: 11px; color: #2dd4bf; margin-top: 6px; font-weight: 600;">Statutory Fixed Deposit Receipt &amp; Security Deposit Verification Seal</div>
+    </div>
+    
+    <div class="body-text">
+      This is to certify that the institutional security deposit and Fixed Deposit Receipt (FDR) referenced below has been verified via the Structured Financial Messaging System (SFMS) national clearing gateway, confirmed to carry the mandatory Member Secretary AICTE Joint Lien Endorsement (APH 2024-25 Clause 4.2), and registered with non-repudiation on the master cryptographic ledger.
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="field-label">Certificate Serial Number</div>
+        <div class="field-val val-accent">${cert.certId}</div>
+      </div>
+      <div>
+        <div class="field-label">FDR Reference Number</div>
+        <div class="field-val">${cert.refNumber}</div>
+      </div>
+      <div>
+        <div class="field-label">Depositing Institution</div>
+        <div class="field-val">${cert.institutionName}</div>
+      </div>
+      <div>
+        <div class="field-label">Scheduled Issuing Bank</div>
+        <div class="field-val">${cert.bankName}</div>
+      </div>
+      <div>
+        <div class="field-label">Principal Amount Verified</div>
+        <div class="field-val val-accent">${formatCleanINR(cert.amount)}</div>
+      </div>
+      <div>
+        <div class="field-label">Date of Attestation</div>
+        <div class="field-val">${cert.issueDate}</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <div class="sign-title">${cert.officerName}</div>
+        <div class="sign-sub">Regulation Officer · AICTE Bureau NW-04</div>
+        <div class="sign-hash">Digital Hash Signature: ${cert.officerSignature}</div>
+      </div>
+      <div class="seal-box">
+        AICTE<br>NATIONAL<br>TRUST SEAL<br>✓ VERIFIED
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+        const blob = new Blob([certHtml], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `AICTE_Certificate_${cert.certId}_${cert.refNumber}.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Open formatted interactive modal preview as well
+        viewCertificateModal(certId);
+
+        showToast(`✓ Certificate ${cert.certId} downloaded successfully.`, 'success');
+      }
+
+      function viewCertificateModal(certId) {
+        const cert = VAULT_STATE.approvedCertificates.find(c => c.certId === certId) || VAULT_STATE.approvedCertificates[0];
+        const content = document.getElementById('certModalContent');
+        content.innerHTML = `
+          <div class="p-6 rounded-xl bg-[#0b0f0e] border border-[#14b8a6]/40 space-y-4 text-center relative overflow-hidden">
+            <div class="w-12 h-12 rounded-full bg-[#18211e] border-2 border-[#14b8a6] text-[#2dd4bf] flex items-center justify-center font-black mx-auto">
+              AICTE
+            </div>
+            <div>
+              <span class="text-[10px] uppercase font-bold tracking-widest text-[#2dd4bf]">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</span>
+              <h2 class="text-base font-extrabold text-[#f8fafc] mt-0.5">Certificate of Statutory FDR Verification</h2>
+              <p class="text-[10px] text-[#94a3b8] mt-0.5">Issued under AICTE Approval Process Handbook (APH 2024-25 Clause 4.2)</p>
+            </div>
+
+            <div class="p-3 rounded-lg bg-[#121816] border border-[#1e2923] text-left text-xs space-y-1.5">
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">Certificate Number:</span>
+                <span class="font-mono font-bold text-[#2dd4bf]">${cert.certId}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">FDR Reference:</span>
+                <span class="font-mono text-[#f8fafc]">${cert.refNumber}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">Institution:</span>
+                <span class="font-bold text-[#f8fafc]">${cert.institutionName}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">Issuing Bank:</span>
+                <span class="text-[#f8fafc]">${cert.bankName}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">Principal Verified:</span>
+                <span class="font-bold text-[#2dd4bf]">${formatCleanINR(cert.amount)}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#94a3b8]">Date of Seal:</span>
+                <span class="text-[#f8fafc]">${cert.issueDate}</span>
+              </div>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between text-left text-[10px] border-t border-[#1e2923]">
+              <div>
+                <span class="text-[#94a3b8] block">Attested By:</span>
+                <span class="font-bold text-[#f8fafc]">${cert.officerName}</span>
+                <span class="text-[#2dd4bf] block font-mono text-[9px]">${cert.officerSignature}</span>
+              </div>
+              <div class="w-12 h-12 bg-white p-1 rounded flex items-center justify-center">
+                <div class="w-full h-full bg-slate-900 flex items-center justify-center text-[7px] font-mono text-white text-center">
+                  SFMS<br/>SEAL
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        openModal('modalCertificate');
+      }
+
+      function printCertificate() {
+        closeModal('modalCertificate');
+        showToast('Certificate print preview initialized. Ready to save as PDF.', 'info');
+      }
+
+      function toggleDocZoomOfficer() {
+        const img = document.getElementById('officerPreviewImg');
+        img.classList.toggle('scale-125');
+      }
+
+      /**
+       * Auditor Unified Ledger Table & Sorters
+       */
+      function switchAuditorView(view) {
+        const vOver = document.getElementById('auditorViewOverview');
+        const vMerk = document.getElementById('auditorViewMerkle');
+        const vStat = document.getElementById('auditorViewStatutory');
+
+        const btnO = document.getElementById('navAuditorOverview');
+        const btnM = document.getElementById('navAuditorMerkle');
+        const btnS = document.getElementById('navAuditorStatutory');
+
+        const inactiveStyle = 'px-3.5 py-1.5 rounded-lg text-[#94a3b8] hover:text-[#f8fafc] transition';
+        const activeStyle = 'px-3.5 py-1.5 rounded-lg bg-[#14b8a6] text-[#0b0f0e] font-semibold transition';
+
+        vOver.classList.add('hidden');
+        vMerk.classList.add('hidden');
+        vStat.classList.add('hidden');
+
+        if (btnO) btnO.className = inactiveStyle;
+        if (btnM) btnM.className = inactiveStyle;
+        if (btnS) btnS.className = inactiveStyle;
+
+        if (view === 'overview') {
+          vOver.classList.remove('hidden');
+          if (btnO) btnO.className = activeStyle;
+          renderAuditorTable();
+        } else if (view === 'merkle') {
+          vMerk.classList.remove('hidden');
+          if (btnM) btnM.className = activeStyle;
+        } else if (view === 'statutory') {
+          vStat.classList.remove('hidden');
+          if (btnS) btnS.className = activeStyle;
+        }
+        initIcons();
+      }
+
+      function applyAuditorFilters() {
+        renderAuditorTable();
+      }
+
+      function renderAuditorTable() {
+        const tbody = document.getElementById('auditorTableBody');
+        if (!tbody) return;
+
+        const statusFilter = document.getElementById('auditorFilterStatus') ? document.getElementById('auditorFilterStatus').value : 'all';
+        const instFilter = document.getElementById('auditorFilterInst') ? document.getElementById('auditorFilterInst').value : 'all';
+        const bankFilter = document.getElementById('auditorFilterBank') ? document.getElementById('auditorFilterBank').value : 'all';
+
+        let list = VAULT_STATE.records;
+
+        if (statusFilter !== 'all') {
+          if (statusFilter === 'verified') {
+            list = list.filter(r => r.auditorStatus === 'verified');
+          } else if (statusFilter === 'rejected') {
+            list = list.filter(r => r.auditorStatus === 'rejected' || r.status === 'flagged');
+          } else if (statusFilter === 'pending') {
+            list = list.filter(r => r.auditorStatus === 'pending' || (!r.auditorStatus && r.status === 'pending'));
+          } else {
+            list = list.filter(r => r.status === statusFilter);
+          }
+        }
+
+        if (instFilter !== 'all') {
+          list = list.filter(r => r.institutionName === instFilter);
+        }
+
+        if (bankFilter !== 'all') {
+          list = list.filter(r => r.bankName === bankFilter);
+        }
+
+        tbody.innerHTML = list.map(r => {
+          let statusBadge = '';
+          if (r.auditorStatus === 'verified') {
+            statusBadge = '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#18211e] text-[#2dd4bf] border border-[#14b8a6]/40"><span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf]"></span>Auditor Verified</span>';
+          } else if (r.auditorStatus === 'rejected') {
+            statusBadge = '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-950/60 text-rose-300 border border-rose-800"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Auditor Rejected</span>';
+          } else {
+            statusBadge = '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-950/60 text-amber-300 border border-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Pending Audit</span>';
+          }
+
+          return `
+            <tr class="hover:bg-[#0b0f0e] transition">
+              <td class="py-3 px-4 font-mono font-bold text-[#f8fafc]">${r.refNumber}</td>
+              <td class="py-3 px-4 text-[#f8fafc]">
+                <div>${r.institutionName}</div>
+                <div class="text-[10px] text-[#94a3b8] font-mono">ID: ${r.institutionCode}</div>
+              </td>
+              <td class="py-3 px-4 text-[#94a3b8]">${r.bankName}</td>
+              <td class="py-3 px-4 font-sans font-bold text-[#f8fafc]">${formatCleanINR(r.amount)}</td>
+              <td class="py-3 px-4 font-mono text-[11px] text-[#2dd4bf]">
+                <span class="cursor-pointer hover:underline" onclick="copyHash('${r.hash}')" title="Click to copy hash">${r.hash}</span>
+              </td>
+              <td class="py-3 px-4">
+                ${statusBadge}
+              </td>
+              <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+                <button 
+                  onclick="auditorVerifyRecord('${r.id}')" 
+                  class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#14b8a6] hover:bg-[#2dd4bf] text-[#0b0f0e] transition inline-flex items-center gap-1 shadow-sm" 
+                  title="Verify Instrument Individually"
+                >
+                  <i data-lucide="check" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                  <span>Verify</span>
+                </button>
+                <button 
+                  onclick="auditorRejectRecord('${r.id}')" 
+                  class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800 transition inline-flex items-center gap-1" 
+                  title="Reject Instrument Individually"
+                >
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                  <span>Reject</span>
+                </button>
+                <button 
+                  onclick="openAuditDrawer('${r.id}')" 
+                  class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#18211e] hover:bg-[#1e2923] text-[#94a3b8] hover:text-[#f8fafc] border border-[#1e2923] transition inline-flex items-center gap-1" 
+                  title="Inspect Audit Timeline"
+                >
+                  <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+                  <span>Trail</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        initIcons();
+      }
+
+      function auditorVerifyRecord(id) {
+        const record = VAULT_STATE.records.find(r => r.id === id);
+        if (!record) return;
+
+        record.auditorStatus = 'verified';
+        record.status = 'active';
+        delete record.discrepancies;
+
+        showToast(`✓ Instrument ${record.refNumber} verified by Auditor. Cryptographic integrity confirmed.`, 'success');
+        updateAuditorMetrics();
+        renderAuditorTable();
+      }
+
+      function auditorRejectRecord(id) {
+        const record = VAULT_STATE.records.find(r => r.id === id);
+        if (!record) return;
+
+        record.auditorStatus = 'rejected';
+        record.status = 'flagged';
+        if (!record.discrepancies) {
+          record.discrepancies = ['Statutory Auditor exception flagged: Missing Member Secretary AICTE Lien endorsement.'];
+        }
+
+        showToast(`⚠️ Instrument ${record.refNumber} rejected by Auditor. Exception logged to CAG registry.`, 'warning');
+        updateAuditorMetrics();
+        renderAuditorTable();
+      }
+
+      function updateAuditorMetrics() {
+        const total = VAULT_STATE.records.length;
+        const rejected = VAULT_STATE.records.filter(r => r.auditorStatus === 'rejected' || r.status === 'flagged').length;
+        const verified = VAULT_STATE.records.filter(r => r.auditorStatus === 'verified').length;
+        const pending = Math.max(0, total - rejected - verified);
+
+        const rateEl = document.getElementById('auditorDiscrepancyRate');
+        if (rateEl) {
+          const pct = ((rejected / total) * 100).toFixed(1);
+          rateEl.textContent = `${pct}%`;
+        }
+
+        const filterSelect = document.getElementById('auditorFilterStatus');
+        if (filterSelect) {
+          const curVal = filterSelect.value;
+          filterSelect.innerHTML = `
+            <option value="all">Status: All (${total})</option>
+            <option value="verified">Auditor Verified (${verified})</option>
+            <option value="rejected">Auditor Rejected (${rejected})</option>
+            <option value="pending">Pending Audit (${pending})</option>
+          `;
+          filterSelect.value = curVal;
+        }
+      }
+
+      function verifySingleHash(hash) {
+        showToast(`✓ Cryptographic Proof: Hash ${hash.substring(0, 14)}... matches Master Merkle Root #1049.`, 'success');
+      }
+
+      function verifyAllCryptographicHashes() {
+        showToast('✓ Cryptographic Proof: All 6 block hashes and SFMS digital signatures verified without tampering.', 'success');
+      }
+
+      function exportAuditPack() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(VAULT_STATE.records, null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", `AICTE_VaultIQ_Audit_Pack_${new Date().toISOString().slice(0, 10)}.json`);
+        dlAnchor.click();
+        showToast('Audit Pack (JSON) downloaded successfully.', 'success');
+      }
+
+      /**
+       * Cryptographic Audit Trail Drawer
+       */
+      function openAuditDrawer(recordId) {
+        const record = VAULT_STATE.records.find(r => r.id === recordId) || VAULT_STATE.records[0];
+        document.getElementById('drawerRefTitle').textContent = `Audit Trail: ${record.refNumber}`;
+
+        const nodes = document.getElementById('timelineNodesList');
+        nodes.innerHTML = `
+          <div class="relative">
+            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#14b8a6] ring-4 ring-[#121816]"></span>
+            <div class="font-bold text-xs text-[#f8fafc]">Block #1: Instrument Submission</div>
+            <div class="text-[10px] text-[#94a3b8]">Actor: Prof. Rajesh Kumar (${record.institutionName})</div>
+            <p class="text-xs text-[#94a3b8] mt-1">Uploaded scanned certificate for course intake approval.</p>
+            <div class="mt-1.5 p-1.5 rounded bg-[#0b0f0e] text-[10px] font-mono text-[#94a3b8] border border-[#1e2923]">Hash: 0x11e9a44c9b012480e72</div>
+          </div>
+
+          <div class="relative">
+            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-blue-500 ring-4 ring-[#121816]"></span>
+            <div class="font-bold text-xs text-[#f8fafc]">Block #2: AI OCR Deep Inspection</div>
+            <div class="text-[10px] text-[#94a3b8]">Actor: VaultIQ Neural Parser v3.2</div>
+            <p class="text-xs text-[#94a3b8] mt-1">Extracted principal ${formatCleanINR(record.amount)}, bank details, and checked AICTE statutory joint lien condition.</p>
+            <div class="mt-1.5 p-1.5 rounded bg-[#0b0f0e] text-[10px] font-mono text-[#94a3b8] border border-[#1e2923]">Hash: 0x44b2a89012fce990145</div>
+          </div>
+
+          <div class="relative">
+            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-[#121816]"></span>
+            <div class="font-bold text-xs text-[#f8fafc]">Block #3: Central Bank CBS Query</div>
+            <div class="text-[10px] text-[#94a3b8]">Channel: Structured Financial Messaging System (SFMS)</div>
+            <p class="text-xs text-[#94a3b8] mt-1">UTR ${record.sfmsTxnId} confirmed with ${record.bankName} core switch.</p>
+            <div class="mt-1.5 p-1.5 rounded bg-[#0b0f0e] text-[10px] font-mono text-[#94a3b8] border border-[#1e2923]">Hash: 0x77c900e43a9921bcfa203</div>
+          </div>
+
+          <div class="relative">
+            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full ${record.status === 'flagged' ? 'bg-amber-400' : 'bg-[#14b8a6]'} ring-4 ring-[#121816]"></span>
+            <div class="font-bold text-xs text-[#f8fafc]">Block #4: Regulation Officer Adjudication</div>
+            <div class="text-[10px] text-[#94a3b8]">Officer: Dr. Sunita Sharma (Regional Cell NW-04)</div>
+            <p class="text-xs text-[#94a3b8] mt-1">
+              ${record.status === 'flagged' ? 'Discrepancy flagged: Missing AICTE Member Secretary endorsement wording.' : 'Digital Certificate verified and approved without conditions.'}
+            </p>
+            <div class="mt-1.5 p-1.5 rounded bg-[#0b0f0e] text-[10px] font-mono text-[#94a3b8] border border-[#1e2923]">Final Master Hash: ${record.hash}</div>
+          </div>
+        `;
+
+        document.getElementById('auditTrailDrawer').classList.remove('hidden');
+        initIcons();
+      }
+
+      function closeAuditDrawer() {
+        document.getElementById('auditTrailDrawer').classList.add('hidden');
+      }
+
+      /**
+       * AI Assistant ("VaultIQ Saathi")
+       */
+      function toggleSaathiDrawer() {
+        document.getElementById('saathiDrawer').classList.toggle('hidden');
+        initIcons();
+      }
+
+      function updateSaathiContext(roleName, promptChips) {
+        const sub = document.getElementById('saathiRoleSub');
+        if (sub) sub.textContent = `${roleName} Context Active`;
+
+        const chipsContainer = document.getElementById('saathiChips');
+        if (chipsContainer) {
+          chipsContainer.innerHTML = promptChips.map(p => `
+            <button 
+              type="button" 
+              onclick="askSaathiPrompt('${p.replace(/'/g, "\\'")}')" 
+              class="shrink-0 px-2 py-1 rounded text-[10px] font-medium bg-[#121816] hover:bg-[#18211e] text-[#f8fafc] border border-[#1e2923] transition"
+            >
+              ${p}
+            </button>
+          `).join('');
+        }
+      }
+
+      function askSaathiPrompt(promptText) {
+        document.getElementById('saathiInput').value = promptText;
+        handleSaathiSubmit(new Event('submit'));
+      }
+
+      function handleSaathiSubmit(e) {
+        e.preventDefault();
+        const input = document.getElementById('saathiInput');
+        const q = input.value.trim();
+        if (!q) return;
+
+        const container = document.getElementById('saathiMessages');
+
+        const userDiv = document.createElement('div');
+        userDiv.className = 'flex gap-2 justify-end';
+        userDiv.innerHTML = `
+          <div class="p-3 rounded-xl rounded-tr-none bg-[#14b8a6] text-[#0b0f0e] font-semibold text-xs leading-relaxed max-w-[85%]">
+            ${q}
+          </div>
+        `;
+        container.appendChild(userDiv);
+        input.value = '';
+        container.scrollTop = container.scrollHeight;
+
+        setTimeout(() => {
+          let reply = '';
+          const lq = q.toLowerCase();
+
+          if (lq.includes('lien') || lq.includes('clause')) {
+            reply = `Under **AICTE Approval Process Handbook (APH 2024-25 Clause 4.2)**, all Fixed Deposit Receipts (FDRs) must contain an explicit joint endorsement:\n\n*"Jointly in the name of the Institution and Member Secretary, All India Council for Technical Education (AICTE) with lien marked to AICTE."*\n\nAny FDR issued solely in the college or trust name without this specific wording will be automatically flagged by VaultIQ's OCR engine.`;
+          } else if (lq.includes('renew') || lq.includes('maturity')) {
+            reply = `FDR renewals must be initiated **at least 30 days prior to the maturity date**. If an FDR matures without renewal, the portal automatically escalates the institution status to 'Critical Non-Compliance' and withholds processing of subsequent academic year intake extensions.`;
+          } else if (lq.includes('hash') || lq.includes('merkle') || lq.includes('audit')) {
+            reply = `VaultIQ anchors each touchpoint (Upload → OCR Parse → CBS Validation → Signoff) using **SHA-256 cryptographic chaining**. Hashes cannot be retroactively modified without invalidating the Merkle root, meeting statutory CAG compliance standards.`;
+          } else if (lq.includes('refund') || lq.includes('release')) {
+            reply = `Security deposit release is permitted only upon **permanent closure of program** or upon completion of the mandatory retention period (typically 8-10 years) subject to submission of No-Dues certificates and AICTE Council approval.`;
+          } else {
+            reply = `Logged your query regarding "${q}". According to AICTE guidelines, all actions taken in VaultIQ are tracked with cryptographic non-repudiation. Let me know if you would like me to draft an official notice or check specific clause compliance.`;
+          }
+
+          const botDiv = document.createElement('div');
+          botDiv.className = 'flex gap-2';
+          botDiv.innerHTML = `
+            <div class="w-6 h-6 rounded-full bg-[#18211e] text-[#2dd4bf] flex items-center justify-center shrink-0 text-[10px] font-bold">
+              IQ
+            </div>
+            <div class="p-3 rounded-xl rounded-tl-none bg-[#0b0f0e] text-[#f8fafc] text-xs leading-relaxed max-w-[85%] border border-[#1e2923]">
+              ${reply.replace(/\n/g, '<br/>')}
+            </div>
+          `;
+          container.appendChild(botDiv);
+          container.scrollTop = container.scrollHeight;
+        }, 320);
+      }
+
+      /**
+       * Modals
+       */
+      function openModal(id) {
+        document.getElementById(id).classList.remove('hidden');
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+      }
+
+      function openRejectModal() {
+        openModal('modalReject');
+      }
+
+      function confirmRejectRecord() {
+        closeModal('modalReject');
+        const reason = document.getElementById('rejectReasonSelect').value;
+        const selector = document.getElementById('officerDocSelector');
+        const recId = selector.value;
+        const index = VAULT_STATE.officerQueue.findIndex(r => r.id === recId);
+        if (index !== -1) {
+          VAULT_STATE.officerQueue.splice(index, 1);
+          initOfficerQueue();
+        }
+        showToast(`FDR rejected: "${reason}". Officer notes dispatched.`, 'warning');
+      }
+
+      function openClarificationModal() {
+        openModal('modalClarify');
+      }
+
+      function confirmClarificationRequest() {
+        closeModal('modalClarify');
+        showToast('Clarification notice sent to College Coordinator via AICTE SFMS gateway.', 'info');
+      }
+
+      /**
+       * Notifications (Role-Specific)
+       */
+      function toggleNotifications() {
+        document.getElementById('notifPanel').classList.toggle('hidden');
+      }
+
+      function renderRoleNotifications(role) {
+        const notifs = VAULT_STATE.notificationsByRole[role] || [];
+        const list = document.getElementById('notifList');
+        const unreadCount = notifs.filter(n => !n.read).length;
+        const badge = document.getElementById('notifBadge');
+        const countText = document.getElementById('unreadCountBadge');
+        const headerText = document.getElementById('alertsRoleHeader');
+
+        if (headerText) {
+          headerText.textContent = `${role.toUpperCase()} Compliance Alerts`;
+        }
+
+        if (unreadCount === 0) {
+          if (badge) badge.classList.add('hidden');
+          if (countText) countText.textContent = '0 unread';
+        } else {
+          if (badge) badge.classList.remove('hidden');
+          if (countText) countText.textContent = `${unreadCount} new`;
+        }
+
+        list.innerHTML = notifs.map(n => {
+          let dotColor = 'bg-[#2dd4bf]';
+          if (n.type === 'error') dotColor = 'bg-rose-500';
+          if (n.type === 'warning') dotColor = 'bg-amber-400';
+          if (n.type === 'success') dotColor = 'bg-[#2dd4bf]';
+
+          return `
+            <div class="p-3 hover:bg-[#0b0f0e] transition ${n.read ? 'opacity-50' : ''}">
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center gap-1.5 font-semibold text-[#f8fafc]">
+                  <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
+                  <span>${n.title}</span>
+                </div>
+                <span class="text-[10px] text-[#94a3b8]">${n.time}</span>
+              </div>
+              <p class="text-[11px] text-[#94a3b8] pl-3 leading-relaxed">${n.message}</p>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function markAllNotificationsRead() {
+        const role = VAULT_STATE.currentRole;
+        if (!role) return;
+        const notifs = VAULT_STATE.notificationsByRole[role] || [];
+        notifs.forEach(n => n.read = true);
+        renderRoleNotifications(role);
+        showToast('All notifications marked as read', 'info');
+      }
+
+      /**
+       * CSV Export
+       */
+      function exportRegistryCSV() {
+        const rows = [
+          ['FDR Reference', 'Institution', 'Bank', 'Branch', 'Principal Amount (INR)', 'Interest Rate (%)', 'Issue Date', 'Maturity Date', 'Lien Endorsed', 'Status', 'SFMS UTR', 'Merkle Hash']
+        ];
+
+        VAULT_STATE.records.forEach(r => {
+          rows.push([
+            r.refNumber,
+            r.institutionName,
+            r.bankName,
+            r.branch,
+            r.amount,
+            r.interestRate,
+            r.issueDate,
+            r.maturityDate,
+            r.lienMarked ? 'YES' : 'NO',
+            r.status,
+            r.sfmsTxnId,
+            r.hash
+          ]);
+        });
+
+        const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.map(cell => `"${cell}"`).join(",")).join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `AICTE_VaultIQ_FDR_Registry_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('FDR Registry exported to CSV successfully.', 'success');
+      }
+
+      function copyHash(hash) {
+        navigator.clipboard.writeText(hash);
+        showToast('Cryptographic hash copied to clipboard.', 'info');
+      }
+
+      function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+
+        let bgClass = 'bg-[#121816] text-[#f8fafc] border border-[#1e2923]';
+        if (type === 'success') bgClass = 'bg-[#18211e] text-[#2dd4bf] border border-[#14b8a6]';
+        if (type === 'warning') bgClass = 'bg-amber-950 text-amber-300 border border-amber-800';
+        if (type === 'error') bgClass = 'bg-rose-950 text-rose-300 border border-rose-800';
+
+        toast.className = `p-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 transform transition duration-300 translate-y-2 opacity-0 pointer-events-auto ${bgClass}`;
+        toast.innerHTML = `<span>${message}</span>`;
+        container.appendChild(toast);
+
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

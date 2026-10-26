@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1050" fill="none" style="background:#FFFDF7; font-family:'Courier New', Courier, monospace;">
+  <defs>
+    <pattern id="iciciGuilloche" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 0 10 Q 5 0 10 10 T 20 10" fill="none" stroke="#FEE2E2" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect x="25" y="25" width="750" height="1000" rx="8" fill="#FFFFFF" stroke="#C2410C" stroke-width="4"/>
+  <rect x="35" y="35" width="730" height="980" rx="4" fill="none" stroke="#EA580C" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="42" y="42" width="716" height="966" fill="url(#iciciGuilloche)"/>
+
+  <!-- Bank Header -->
+  <g transform="translate(60, 60)">
+    <rect x="10" y="10" width="50" height="50" rx="8" fill="#C2410C"/>
+    <text x="35" y="42" font-family="'Inter', sans-serif" font-size="18" font-weight="900" fill="#FFFFFF" text-anchor="middle">ICICI</text>
+
+    <text x="80" y="32" font-family="'Inter', sans-serif" font-size="22" font-weight="900" fill="#C2410C">ICICI BANK LIMITED</text>
+    <text x="80" y="50" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#475569">SAKET DISTRICT CENTRE BRANCH · NEW DELHI - 110017</text>
+    <text x="80" y="66" font-family="'Inter', sans-serif" font-size="10" fill="#64748B">IFSC: ICIC0000045 | REGULATORY SECURITY DEPOSIT</text>
+
+    <rect x="470" y="15" width="210" height="42" rx="4" fill="#C2410C"/>
+    <text x="575" y="35" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">FIXED DEPOSIT RECEIPT</text>
+    <text x="575" y="48" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#FFEDD5" text-anchor="middle">TERM DEPOSIT CERTIFICATE</text>
+  </g>
+
+  <line x1="60" y1="150" x2="740" y2="150" stroke="#C2410C" stroke-width="2"/>
+
+  <!-- Key Info Grid -->
+  <g transform="translate(60, 175)" font-family="'Inter', sans-serif">
+    <rect x="0" y="0" width="320" height="55" fill="#FFF7ED" stroke="#FDBA74" rx="4"/>
+    <text x="15" y="20" font-size="10" font-weight="600" fill="#9A3412">FDR REFERENCE NO.</text>
+    <text x="15" y="42" font-size="16" font-weight="800" fill="#C2410C">ICICI-FDR-2024-44019</text>
+
+    <rect x="340" y="0" width="340" height="55" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+    <text x="355" y="20" font-size="10" font-weight="600" fill="#64748B">SFMS UTR / UNIQUE TRANSACTION REF</text>
+    <text x="355" y="42" font-size="15" font-weight="700" fill="#0F172A">SFMS240820019284-ICI</text>
+
+    <g transform="translate(0, 70)">
+      <text x="0" y="15" font-size="10" font-weight="700" fill="#475569">DEPOSITOR NAME:</text>
+      <text x="0" y="35" font-size="14" font-weight="800" fill="#0F172A">DELHI TECHNICAL CAMPUS (AICTE PERMANENT ID: 1-932145)</text>
+      <text x="0" y="55" font-size="10" fill="#64748B">Plot No. 28/1, Knowledge Park III, Greater Noida, UP - 201306</text>
+    </g>
+
+    <!-- Financial Values Box -->
+    <g transform="translate(0, 145)">
+      <rect x="0" y="0" width="680" height="85" fill="#F8FAFC" stroke="#E2E8F0" rx="6"/>
+      
+      <g transform="translate(20, 20)">
+        <text x="0" y="15" font-size="10" font-weight="600" fill="#64748B">PRINCIPAL AMOUNT</text>
+        <text x="0" y="40" font-size="20" font-weight="900" fill="#0F172A">₹ 60,00,000.00</text>
+        <text x="0" y="55" font-size="10" font-weight="600" fill="#047857">RUPEES SIXTY LAKH ONLY</text>
+      </g>
+
+      <g transform="translate(260, 20)">
+        <text x="0" y="15" font-size="10" font-weight="600" fill="#64748B">INTEREST RATE (P.A.)</text>
+        <text x="0" y="40" font-size="20" font-weight="900" fill="#0F172A">7.30 %</text>
+        <text x="0" y="55" font-size="10" fill="#64748B">Compounded Quarterly</text>
+      </g>
+
+      <g transform="translate(480, 20)">
+        <text x="0" y="15" font-size="10" font-weight="600" fill="#64748B">TENURE / MATURITY</text>
+        <text x="0" y="40" font-size="16" font-weight="900" fill="#0F172A">2029-08-20</text>
+        <text x="0" y="55" font-size="10" fill="#64748B">Issue: 2024-08-20 (5 Yrs)</text>
+      </g>
+    </g>
+
+    <!-- AICTE Mandatory Lien Endorsement -->
+    <g transform="translate(0, 255)">
+      <rect x="0" y="0" width="680" height="110" fill="#F0FDF4" stroke="#86EFAC" rx="6"/>
+      <text x="20" y="24" font-size="11" font-weight="800" fill="#166534">MANDATORY AICTE JOINT LIEN ENDORSEMENT CLAUSE (APH 2024-25 CLAUSE 4.2):</text>
+      <text x="20" y="48" font-size="11" font-weight="700" fill="#0F172A">"Jointly in the name of Delhi Technical Campus and Member Secretary,</text>
+      <text x="20" y="66" font-size="11" font-weight="700" fill="#0F172A">All India Council for Technical Education (AICTE), New Delhi."</text>
+      <text x="20" y="88" font-size="10" font-style="italic" fill="#15803D">Lien marked in favour of AICTE in bank core banking switch. No premature encashment without AICTE NOC.</text>
+    </g>
+
+    <!-- Bank Official Signatures & Barcode -->
+    <g transform="translate(0, 390)">
+      <rect x="0" y="0" width="210" height="70" fill="#FFFFFF" stroke="#CBD5E1" rx="4"/>
+      <text x="10" y="20" font-size="9" font-weight="700" fill="#64748B">AUTHORIZED SIGNATORY #1</text>
+      <text x="10" y="55" font-family="'Brush Script MT', cursive, sans-serif" font-size="18" fill="#1E293B">S. K. Verma</text>
+
+      <rect x="235" y="0" width="210" height="70" fill="#FFFFFF" stroke="#CBD5E1" rx="4"/>
+      <text x="10" y="20" font-size="9" font-weight="700" fill="#64748B">BRANCH MANAGER / SEAL</text>
+      <text x="10" y="55" font-family="'Brush Script MT', cursive, sans-serif" font-size="18" fill="#1E293B">A. K. Bansal</text>
+
+      <g transform="translate(470, 0)">
+        <rect x="0" y="0" width="210" height="70" fill="#FFFFFF" stroke="#CBD5E1" rx="4"/>
+        <text x="10" y="18" font-size="9" font-weight="700" fill="#64748B">SFMS QR AUTHENTICATION</text>
+        <rect x="15" y="26" width="35" height="35" fill="#0F172A"/>
+        <rect x="20" y="31" width="10" height="10" fill="#FFFFFF"/>
+        <text x="60" y="42" font-size="10" font-weight="800" fill="#047857">CBS VERIFIED</text>
+        <text x="60" y="55" font-size="8" fill="#64748B">AUTH KEY: 77019A</text>
+      </g>
+    </g>
+  </g>
+</svg>

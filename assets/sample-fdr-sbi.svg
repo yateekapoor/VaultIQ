@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1050" fill="none" style="background:#FAFBF7; font-family:'Courier New', Courier, monospace;">
+  <defs>
+    <pattern id="guilloche" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 0 10 Q 5 0 10 10 T 20 10" fill="none" stroke="#D1D5DB" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <!-- Certificate Border -->
+  <rect x="25" y="25" width="750" height="1000" rx="8" fill="#FFFDF8" stroke="#003366" stroke-width="4" filter="url(#shadow)"/>
+  <rect x="35" y="35" width="730" height="980" rx="4" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <rect x="42" y="42" width="716" height="966" fill="url(#guilloche)"/>
+
+  <!-- Bank Header -->
+  <g transform="translate(60, 60)">
+    <!-- SBI Crest -->
+    <circle cx="40" cy="40" r="30" fill="#003366"/>
+    <circle cx="40" cy="35" r="10" fill="#FFFDF8"/>
+    <rect x="37" y="35" width="6" height="24" fill="#FFFDF8"/>
+
+    <text x="90" y="32" font-family="'Inter', sans-serif" font-size="22" font-weight="900" fill="#003366" letter-spacing="0.5">STATE BANK OF INDIA</text>
+    <text x="90" y="50" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#475569">CONNAUGHT PLACE BRANCH (00691) · NEW DELHI - 110001</text>
+    <text x="90" y="66" font-family="'Inter', sans-serif" font-size="10" fill="#64748B">IFSC: SBIN0000691 | RTGS/NEFT/SFMS ENABLED</text>
+
+    <!-- Certificate Title Badge -->
+    <rect x="460" y="15" width="220" height="42" rx="4" fill="#003366"/>
+    <text x="570" y="35" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">TERM DEPOSIT RECEIPT</text>
+    <text x="570" y="48" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#93C5FD" text-anchor="middle">SPECIAL SECURITY SCHEME</text>
+  </g>
+
+  <line x1="60" y1="150" x2="740" y2="150" stroke="#003366" stroke-width="2"/>
+
+  <!-- Watermark in Background -->
+  <g opacity="0.04" transform="translate(250, 420) rotate(-30)">
+    <text x="0" y="0" font-family="'Inter', sans-serif" font-size="75" font-weight="900" fill="#003366">AICTE LIEN</text>
+  </g>
+
+  <!-- Key Info Grid -->
+  <g transform="translate(60, 175)" font-family="'Inter', sans-serif">
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="320" height="55" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+    <text x="15" y="20" font-size="10" font-weight="600" fill="#64748B">FDR ACCOUNT / RECEIPT NO.</text>
+    <text x="15" y="42" font-size="16" font-weight="800" fill="#0F172A">SBI-FDR-2024-88910</text>
+
+    <rect x="340" y="0" width="340" height="55" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+    <text x="355" y="20" font-size="10" font-weight="600" fill="#64748B">SFMS UTR / UNIQUE REFERENCE ID</text>
+    <text x="355" y="42" font-size="15" font-weight="700" fill="#2563EB">SFMS241029881920-IND</text>
+
+    <!-- Row 2 -->
+    <g transform="translate(0, 70)">
+      <text x="0" y="15" font-size="10" font-weight="700" fill="#475569">DEPOSITOR NAME (INSTITUTION):</text>
+      <text x="0" y="35" font-size="14" font-weight="800" fill="#0F172A">DELHI TECHNICAL CAMPUS (AICTE ID: 1-932145)</text>
+      <text x="0" y="52" font-size="11" fill="#64748B">Knowledge Park III, Greater Noida, UP - 201306</text>
+    </g>
+
+    <!-- Row 3: Joint Lien Endorsement Banner -->
+    <g transform="translate(0, 140)">
+      <rect x="0" y="0" width="680" height="75" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5" rx="6"/>
+      <text x="20" y="24" font-size="12" font-weight="900" fill="#92400E">MANDATORY STATUTORY LIEN CLAUSE:</text>
+      <text x="20" y="44" font-size="11" font-weight="700" fill="#78350F">"JOINT LIEN MARKED IN FAVOUR OF MEMBER SECRETARY, ALL INDIA COUNCIL FOR TECHNICAL EDUCATION (AICTE)."</text>
+      <text x="20" y="62" font-size="10" font-weight="600" fill="#B45309">No encashment, loan, or premature withdrawal permitted without written concurrence of AICTE.</text>
+    </g>
+
+    <!-- Row 4: Financial Table -->
+    <g transform="translate(0, 235)">
+      <rect x="0" y="0" width="680" height="150" fill="#FFFFFF" stroke="#CBD5E1" rx="6"/>
+      <line x1="0" y1="40" x2="680" y2="40" stroke="#CBD5E1"/>
+      <line x1="220" y1="0" x2="220" y2="150" stroke="#CBD5E1"/>
+      <line x1="450" y1="0" x2="450" y2="150" stroke="#CBD5E1"/>
+
+      <!-- Headers -->
+      <text x="20" y="25" font-size="11" font-weight="700" fill="#64748B">PRINCIPAL AMOUNT (INR)</text>
+      <text x="240" y="25" font-size="11" font-weight="700" fill="#64748B">INTEREST RATE &amp; TENURE</text>
+      <text x="470" y="25" font-size="11" font-weight="700" fill="#64748B">MATURITY VALUE (EST.)</text>
+
+      <!-- Values -->
+      <text x="20" y="75" font-size="22" font-weight="900" fill="#0F172A">₹50,00,000/-</text>
+      <text x="20" y="100" font-size="10" font-weight="600" fill="#64748B">Fifty Lakh Rupees Only</text>
+
+      <text x="240" y="70" font-size="15" font-weight="800" fill="#0F172A">7.25% p.a.</text>
+      <text x="240" y="90" font-size="11" fill="#475569">Tenure: 36 Months</text>
+      <text x="240" y="110" font-size="10" fill="#64748B">Compounded Quarterly</text>
+
+      <text x="470" y="75" font-size="20" font-weight="900" fill="#16A34A">₹61,98,240/-</text>
+      <text x="470" y="100" font-size="10" font-weight="600" fill="#64748B">Auto-Renewal: ON (AICTE Terms)</text>
+    </g>
+
+    <!-- Row 5: Dates -->
+    <g transform="translate(0, 405)">
+      <rect x="0" y="0" width="320" height="60" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+      <text x="15" y="22" font-size="10" font-weight="700" fill="#64748B">EFFECTIVE DATE OF ISSUE</text>
+      <text x="15" y="45" font-size="15" font-weight="800" fill="#0F172A">10 MAY 2024</text>
+
+      <rect x="360" y="0" width="320" height="60" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+      <text x="375" y="22" font-size="10" font-weight="700" fill="#64748B">DATE OF MATURITY</text>
+      <text x="375" y="45" font-size="15" font-weight="800" fill="#0F172A">10 MAY 2027</text>
+    </g>
+
+    <!-- Signatures & Official Stamps -->
+    <g transform="translate(0, 490)">
+      <!-- Bank Stamp Circle -->
+      <g transform="translate(80, 50)">
+        <circle cx="50" cy="50" r="48" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="4 2" opacity="0.85"/>
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.85"/>
+        <text x="50" y="38" font-size="8" font-weight="800" fill="#2563EB" text-anchor="middle">STATE BANK OF INDIA</text>
+        <text x="50" y="52" font-size="7" font-weight="700" fill="#2563EB" text-anchor="middle">CONNAUGHT PLACE</text>
+        <text x="50" y="66" font-size="8" font-weight="800" fill="#DC2626" text-anchor="middle">LIEN NOTED</text>
+      </g>
+
+      <!-- Signatures -->
+      <g transform="translate(420, 20)">
+        <path d="M 20 60 Q 50 10 90 50 T 160 30 T 210 50" fill="none" stroke="#1E293B" stroke-width="2"/>
+        <line x1="10" y1="70" x2="240" y2="70" stroke="#94A3B8" stroke-width="1"/>
+        <text x="125" y="86" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Chief Manager / Authorized Officer</text>
+        <text x="125" y="100" font-size="9" fill="#64748B" text-anchor="middle">Staff Code: SBI-DEL-99214</text>
+      </g>
+    </g>
+
+    <!-- Barcode & Blockchain Verification Hash at Bottom -->
+    <g transform="translate(0, 640)">
+      <line x1="0" y1="0" x2="680" y2="0" stroke="#E2E8F0"/>
+      <!-- Mock Barcode lines -->
+      <g transform="translate(20, 15)">
+        <rect x="0" y="0" width="3" height="35" fill="#0F172A"/>
+        <rect x="5" y="0" width="1" height="35" fill="#0F172A"/>
+        <rect x="8" y="0" width="4" height="35" fill="#0F172A"/>
+        <rect x="15" y="0" width="2" height="35" fill="#0F172A"/>
+        <rect x="20" y="0" width="5" height="35" fill="#0F172A"/>
+        <rect x="28" y="0" width="1" height="35" fill="#0F172A"/>
+        <rect x="32" y="0" width="3" height="35" fill="#0F172A"/>
+        <rect x="38" y="0" width="2" height="35" fill="#0F172A"/>
+        <rect x="43" y="0" width="4" height="35" fill="#0F172A"/>
+        <rect x="50" y="0" width="2" height="35" fill="#0F172A"/>
+        <rect x="55" y="0" width="5" height="35" fill="#0F172A"/>
+        <rect x="63" y="0" width="1" height="35" fill="#0F172A"/>
+        <rect x="67" y="0" width="3" height="35" fill="#0F172A"/>
+        <rect x="73" y="0" width="2" height="35" fill="#0F172A"/>
+        <rect x="78" y="0" width="4" height="35" fill="#0F172A"/>
+        <rect x="85" y="0" width="2" height="35" fill="#0F172A"/>
+        <text x="0" y="48" font-size="8" font-family="monospace" fill="#64748B">*88910-AICTE-SBI-2024*</text>
+      </g>
+      <g transform="translate(240, 20)">
+        <text x="0" y="10" font-size="9" font-weight="700" fill="#475569">VaultIQ Tamper-Evident Security Seal</text>
+        <text x="0" y="24" font-size="8" font-family="monospace" fill="#2563EB">SHA256: 0x8f2a4c9e144a79b0271c08f918e5</text>
+        <text x="0" y="36" font-size="8" fill="#16A34A">✓ Cryptographically Anchored to AICTE Master Ledger</text>
+      </g>
+    </g>
+  </g>
+</svg>

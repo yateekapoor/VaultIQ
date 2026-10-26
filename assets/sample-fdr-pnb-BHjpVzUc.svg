@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1050" fill="none" style="background:#FFFDF7; font-family:'Courier New', Courier, monospace;">
+  <defs>
+    <pattern id="pnbGuilloche" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 0 10 Q 5 0 10 10 T 20 10" fill="none" stroke="#E2E8F0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect x="25" y="25" width="750" height="1000" rx="8" fill="#FFFFFF" stroke="#881337" stroke-width="4"/>
+  <rect x="35" y="35" width="730" height="980" rx="4" fill="none" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="42" y="42" width="716" height="966" fill="url(#pnbGuilloche)"/>
+
+  <!-- Bank Header -->
+  <g transform="translate(60, 60)">
+    <rect x="10" y="10" width="50" height="50" rx="8" fill="#881337"/>
+    <text x="35" y="42" font-family="'Inter', sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle">PNB</text>
+
+    <text x="80" y="32" font-family="'Inter', sans-serif" font-size="22" font-weight="900" fill="#881337">PUNJAB NATIONAL BANK</text>
+    <text x="80" y="50" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#475569">SECTOR 62 BRANCH · NOIDA, UP - 201309</text>
+    <text x="80" y="66" font-family="'Inter', sans-serif" font-size="10" fill="#64748B">IFSC: PUNB0123400 | CORE BANKING INSTRUMENT</text>
+
+    <rect x="470" y="15" width="210" height="42" rx="4" fill="#881337"/>
+    <text x="575" y="35" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">FIXED DEPOSIT RECEIPT</text>
+    <text x="575" y="48" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#FECDD3" text-anchor="middle">DISCREPANCY SAMPLE</text>
+  </g>
+
+  <line x1="60" y1="150" x2="740" y2="150" stroke="#881337" stroke-width="2"/>
+
+  <!-- Key Info Grid -->
+  <g transform="translate(60, 175)" font-family="'Inter', sans-serif">
+    <rect x="0" y="0" width="320" height="55" fill="#FFF1F2" stroke="#FECDD3" rx="4"/>
+    <text x="15" y="20" font-size="10" font-weight="600" fill="#9F1239">FDR REFERENCE NO.</text>
+    <text x="15" y="42" font-size="16" font-weight="800" fill="#881337">PNB-FDR-2024-77412</text>
+
+    <rect x="340" y="0" width="340" height="55" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+    <text x="355" y="20" font-size="10" font-weight="600" fill="#64748B">SFMS UTR / UNIQUE REFERENCE</text>
+    <text x="355" y="42" font-size="15" font-weight="700" fill="#0F172A">SFMS240811900341-PNB</text>
+
+    <g transform="translate(0, 70)">
+      <text x="0" y="15" font-size="10" font-weight="700" fill="#475569">DEPOSITOR NAME:</text>
+      <text x="0" y="35" font-size="14" font-weight="800" fill="#0F172A">DELHI TECHNICAL CAMPUS (AICTE ID: 1-932145)</text>
+      <text x="0" y="52" font-size="11" fill="#64748B">Applied for: Approval Extension for PGDM Course</text>
+    </g>
+
+    <!-- Discrepancy Clause Highlight Area -->
+    <g transform="translate(0, 140)">
+      <rect x="0" y="0" width="680" height="75" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 2" rx="6"/>
+      <text x="20" y="24" font-size="12" font-weight="900" fill="#DC2626">⚠️ NOTATION NOTE (AI DETECTED DEFICIENCY):</text>
+      <text x="20" y="44" font-size="11" font-weight="700" fill="#991B1B">"Deposit made under general college trust name. Lien endorsement lacks specific AICTE Member Secretary clause."</text>
+      <text x="20" y="62" font-size="10" font-weight="600" fill="#B91C1C">AI OCR flagged discrepancy against AICTE Approval Process Handbook (APH) clause 4.2.</text>
+    </g>
+
+    <!-- Financial Table -->
+    <g transform="translate(0, 235)">
+      <rect x="0" y="0" width="680" height="150" fill="#FFFFFF" stroke="#CBD5E1" rx="6"/>
+      <line x1="0" y1="40" x2="680" y2="40" stroke="#CBD5E1"/>
+      <line x1="220" y1="0" x2="220" y2="150" stroke="#CBD5E1"/>
+      <line x1="450" y1="0" x2="450" y2="150" stroke="#CBD5E1"/>
+
+      <text x="20" y="25" font-size="11" font-weight="700" fill="#64748B">PRINCIPAL AMOUNT (INR)</text>
+      <text x="240" y="25" font-size="11" font-weight="700" fill="#64748B">INTEREST RATE &amp; TENURE</text>
+      <text x="470" y="25" font-size="11" font-weight="700" fill="#64748B">MATURITY VALUE (EST.)</text>
+
+      <text x="20" y="75" font-size="22" font-weight="900" fill="#0F172A">₹35,00,000/-</text>
+      <text x="20" y="100" font-size="10" font-weight="600" fill="#64748B">Thirty Five Lakh Rupees Only</text>
+
+      <text x="240" y="70" font-size="15" font-weight="800" fill="#E11D48">6.80% p.a. (Bank CBS: 7.10%)</text>
+      <text x="240" y="90" font-size="11" fill="#475569">Tenure: 36 Months</text>
+      <text x="240" y="110" font-size="10" fill="#E11D48">Rate disparity: 0.30% gap</text>
+
+      <text x="470" y="75" font-size="20" font-weight="900" fill="#0F172A">₹42,85,110/-</text>
+      <text x="470" y="100" font-size="10" font-weight="600" fill="#64748B">Auto-Renewal: Pending Mandate</text>
+    </g>
+
+    <g transform="translate(0, 405)">
+      <rect x="0" y="0" width="320" height="60" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+      <text x="15" y="22" font-size="10" font-weight="700" fill="#64748B">EFFECTIVE DATE OF ISSUE</text>
+      <text x="15" y="45" font-size="15" font-weight="800" fill="#0F172A">15 JUNE 2024</text>
+
+      <rect x="360" y="0" width="320" height="60" fill="#F8FAFC" stroke="#E2E8F0" rx="4"/>
+      <text x="375" y="22" font-size="10" font-weight="700" fill="#64748B">DATE OF MATURITY</text>
+      <text x="375" y="45" font-size="15" font-weight="800" fill="#0F172A">15 JUNE 2027</text>
+    </g>
+
+    <g transform="translate(0, 490)">
+      <g transform="translate(80, 50)">
+        <circle cx="50" cy="50" r="48" fill="none" stroke="#881337" stroke-width="2" stroke-dasharray="4 2" opacity="0.85"/>
+        <text x="50" y="44" font-size="8" font-weight="800" fill="#881337" text-anchor="middle">PUNJAB NATIONAL BANK</text>
+        <text x="50" y="58" font-size="7" font-weight="700" fill="#881337" text-anchor="middle">NOIDA SECTOR 62</text>
+      </g>
+      <g transform="translate(420, 20)">
+        <path d="M 20 50 Q 60 20 110 50 T 170 40" fill="none" stroke="#1E293B" stroke-width="2"/>
+        <line x1="10" y1="70" x2="240" y2="70" stroke="#94A3B8" stroke-width="1"/>
+        <text x="125" y="86" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Branch Operations Manager</text>
+      </g>
+    </g>
+  </g>
+</svg>
